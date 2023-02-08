@@ -1,4 +1,4 @@
-# Plenty Aces 
+# Player 1 
 
 Plenty Aces is a Virtual Movie Collection that allows users to discover where to purchase some of their favorite movies thus cutting out hours of searching on Google 
 

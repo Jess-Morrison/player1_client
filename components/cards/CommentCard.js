@@ -1,1 +1,1 @@
-// Basic comment card minus the delete, update buttons 
+// Basic comment card minus the delete, update buttons

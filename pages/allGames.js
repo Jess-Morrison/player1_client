@@ -1,1 +1,1 @@
-// landing page where you see all the video games 
+// landing page where you see all the video games

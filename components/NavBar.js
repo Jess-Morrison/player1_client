@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { signOut } from '../utils/auth';
 import { useAuth } from '../utils/context/authContext';
 
-
 export default function NavBar() {
   const { userId } = useAuth();
   return (

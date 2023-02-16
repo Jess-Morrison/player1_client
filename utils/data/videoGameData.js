@@ -30,20 +30,31 @@ const getVideoGameById = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createVideoGame = (user, post) => new Promise((resolve, reject) => {
-  const gameObj = {
-    user: user.id,
-    game_genre: post.gameGenre,
-    game_title: post.gameTitle,
-    image_url: post.imageUrl,
-    purchase_location: post.purchaseLocation,
-    game_format: post.gameFormat,
-    description: post.description,
-    // uid: user.uid,
-  };
+// const createVideoGame = (user, post) => new Promise((resolve, reject) => {
+//   // const gameObj = {
+//   //   user: user.id,
+//   //   game_genre: post.gameGenre,
+//   //   game_title: post.gameTitle,
+//   //   image_url: post.imageUrl,
+//   //   purchase_location: post.purchaseLocation,
+//   //   game_format: post.gameFormat,
+//   //   description: post.description,
+//   //   // uid: user.uid,
+//   // };
+//   fetch(`${clientCredentials.databaseURL}/videogames`, {
+//     method: 'POST',
+//     body: JSON.stringify(gameObj),
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   })
+//     .then((resp) => resolve(resp.json()))
+//     .catch((error) => reject(error));
+// });
+const createVideoGame = (game) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/videogames`, {
     method: 'POST',
-    body: JSON.stringify(gameObj),
+    body: JSON.stringify(game),
     headers: {
       'Content-Type': 'application/json',
     },

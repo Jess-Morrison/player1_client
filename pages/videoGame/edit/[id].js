@@ -14,7 +14,7 @@ export default function EditVideoGameEntry() {
 
   return (
     <div className="create-form" style={{ height: '45rem', padding: '10%' }}>
-      <VideoGameForm obj={editVideoGameItem} />
+      <VideoGameForm gameObj={editVideoGameItem} />
     </div>
   );
 }

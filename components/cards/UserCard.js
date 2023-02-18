@@ -4,10 +4,12 @@ import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 import { deleteUser } from '../../utils/data/userData';
+import { useAuth } from '../../utils/context/authContext';
 
 export default function UserCard({
   firstName, lastName, userId, aboutMe, imageUrl, userName, tagLine, onUpdate,
 }) {
+  const { user } = useAuth();
   const deleteThisUser = () => {
     if (window.confirm('Delete?')) {
       deleteUser(userId).then(() => onUpdate());
@@ -24,10 +26,10 @@ export default function UserCard({
           <Card.Text>{aboutMe}</Card.Text>
           <Card.Text>{userName}</Card.Text>
           <Card.Text>{tagLine}</Card.Text>
-          <Link href={`/user/${userId}`} passHref>
+          <Link href={`/user/${user.userId}`} passHref>
             <Button variant="primary" className="m-2">VIEW</Button>
           </Link>
-          <Link href={`/user/edit/${userId}`} passHref>
+          <Link href={`/user/edit/${user.userId}`} passHref>
             <Button variant="info">EDIT</Button>
           </Link>
           {/* /products?orderBy="seller"&equalTo=${id} */}

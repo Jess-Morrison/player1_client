@@ -12,11 +12,11 @@ export default function VideoGameCard({
 }) {
   const [gameById, setGameById] = useState([]);
   const { user } = useAuth();
-  console.warn(gameById);
+  // console.warn(gameById);
 
   useEffect(() => {
     getVideoGameById(id).then(setGameById);
-  }, []);
+  }, [id]);
 
   const deleteThisGame = () => {
     // if (window.confirm(`Delete ${gameById.gameTitle}?`)) {
@@ -31,7 +31,8 @@ export default function VideoGameCard({
 
   const btnsForUser = () => {
     // eslint-disable-next-line react/self-closing-comp
-    if (user.id === gameById.user.id && <Link passHref href="/userCollection"></Link>) {
+    // one minute its working the next its not
+    if (user.id === gameById.user?.id && <Link passHref href="/userCollection" />) {
       return (
         <>
           <Link href={`/videoGame/edit/${gameById.id}`} passHref>

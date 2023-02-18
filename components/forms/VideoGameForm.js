@@ -11,7 +11,7 @@ import { useAuth } from '../../utils/context/authContext';
 // import { getUsers } from '../../utils/data/userData';
 
 const initialState = {
-  // id: 0,
+  id: 0,
   gameGenre: '',
   gameTitle: '',
   imageUrl: '',
@@ -29,15 +29,27 @@ export default function VideoGameForm({ gameObj }) {
   const { user } = useAuth();
   const router = useRouter();
 
-  const getAndSet = () => {
-    if (gameObj?.id) {
-      setFormInput(gameObj);
-    }
-  };
+  // const getAndSet = () => {
+  //   if (gameObj.id) {
+  //     setFormInput(gameObj);
+  //   }
+  // };
 
   useEffect(() => {
-    getAndSet();
-  }, [gameObj]);
+    // if (gameObj?.id)setFormInput(gameObj);
+    if (gameObj.id) {
+      setFormInput({
+        id: gameObj.id,
+        gameGenre: Number(gameObj.gameGenre),
+        gameTitle: gameObj.gameTitle,
+        imageUrl: gameObj.imageUrl,
+        purchaseLocation: gameObj.purchaseLocation,
+        gameFormat: gameObj.gameFormat,
+        description: gameObj.description,
+      });
+    }
+  }, [gameObj, user]);
+  console.warn(gameObj);
 
   useEffect(() => {
     getGameGenres().then(setGameGenres);
@@ -57,8 +69,10 @@ export default function VideoGameForm({ gameObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (gameObj && gameObj.id) {
-      updateVideoGame(formInput, gameObj.id).then(() => router.push(`/videoGame/edit/${gameObj.id}`));
+    if (gameObj.id) {
+      updateVideoGame(formInput, gameObj.id).then(() => {
+        setFormInput(initialState); router.push(`/videoGame/${gameObj.id}`);
+      });
     } else {
       // eslint-disable-next-line array-callback-return
       const payload = { ...formInput, userId: user.id };
@@ -67,13 +81,13 @@ export default function VideoGameForm({ gameObj }) {
   };
   return (
     <Form onSubmit={handleSubmit}>
-      <h2 style={{ color: '#84190B', font: 'bold', 'font-size': '5rem' }} className="mt-5">Video Game</h2>
-      {/* <h2 style={{ color: '#84190B', font: 'bold', 'font-size': '5rem' }} className="mt-5">{obj.id ? 'Update' : 'Create'} Video Game</h2> */}
+      {/* <h2 style={{ color: '#84190B', font: 'bold', 'font-size': '5rem' }} className="mt-5">Video Game</h2> */}
+      <h2 style={{ color: '#84190B', font: 'bold', 'font-size': '5rem' }} className="mt-5">{gameObj?.id ? 'Update' : 'Create'} Video Game</h2>
       <FloatingLabel controlId="floatingInput1" label="Video Game Name" className="mb-5">
-        <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Video Game Name" name="gameTitle" value={formInput.movieTitle} onChange={handleChange} required />
+        <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Video Game Name" name="gameTitle" value={formInput.gameTitle} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingInput1" label="Game Format" className="mb-5">
-        <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Game Format" name="gameFormat" value={formInput.movieTitle} onChange={handleChange} required />
+        <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Game Format" name="gameFormat" value={formInput.gameFormat} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingInput3" label="Purchase Location" className="mb-3">
         <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Purchase location" name="purchaseLocation" value={formInput.purchaseLocation} onChange={handleChange} required />
@@ -81,6 +95,7 @@ export default function VideoGameForm({ gameObj }) {
       <FloatingLabel controlId="floatingSelect">
         <Form.Select
           aria-label="Video Game Genre"
+          // key={gameGenres.id}
           name="gameGenre"
           type="text"
           value={formInput.gameGenres}
@@ -91,7 +106,7 @@ export default function VideoGameForm({ gameObj }) {
           <option value="">Select Game Genre</option>
           {gameGenres.map((gameGenre) => (
             <option value={gameGenre.id} style={{ color: 'black' }}>
-              {gameGenre.gameGenreName}
+              {gameGenre.game_genre_name}
             </option>
           ))}
           {/* <option value="RPG">RPG</option>
@@ -109,18 +124,40 @@ export default function VideoGameForm({ gameObj }) {
       <FloatingLabel controlId="floatingInput1" label="Video Game Description" className="mb-3">
         <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Video Game Description" name="description" value={formInput.description} onChange={handleChange} required />
       </FloatingLabel>
-      <Button type="submit">Video Game</Button>
-      {/* <Button type="submit">{obj.id ? 'Update' : 'Create'} Video Game</Button> */}
+      {/* <Button type="submit">Submit</Button> */}
+      <Button type="submit">{gameObj?.id ? 'Update' : 'Create'} Video Game</Button>
     </Form>
   );
 }
 
 VideoGameForm.propTypes = {
   gameObj: PropTypes.shape({
+    gameGenre: PropTypes.shape({
+      id: PropTypes.number,
+      game_genre_name: PropTypes.string,
+    }),
     id: PropTypes.number,
+    // game_genre: PropTypes.number,
+    gameTitle: PropTypes.string,
+    imageUrl: PropTypes.string,
+    purchaseLocation: PropTypes.string,
+    gameFormat: PropTypes.string,
+    description: PropTypes.string,
+    user: PropTypes.shape({
+      id: PropTypes.number,
+      first_name: PropTypes.string,
+      last_name: PropTypes.string,
+      about_me: PropTypes.string,
+      image_url: PropTypes.string,
+      tag_line: PropTypes.string,
+      user_name: PropTypes.string,
+      bio: PropTypes.string,
+      uid: PropTypes.string,
+    }),
   }).isRequired,
+  // .isRequired,
 };
 
 // VideoGameForm.defaultProps = {
-//   obj: initialState,
+//   gameObj: initialState,
 // };

@@ -64,25 +64,35 @@ const createVideoGame = (game) => new Promise((resolve, reject) => {
 });
 
 const updateVideoGame = (user, put, id) => new Promise((resolve, reject) => {
-  const gameObj = {
-    id: put.id,
-    game_genre: put.gameGenre,
-    game_title: put.gameTitle,
-    image_url: put.imageUrl,
-    purchase_location: put.purchaseLocation,
-    game_format: put.gameFormat,
-    description: put.description,
-  };
   fetch(`${clientCredentials.databaseURL}/videogames/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(gameObj),
+    body: JSON.stringify(put),
   })
     .then((response) => resolve(response.data))
     .catch(reject);
 });
+//   const gameObj = {
+//     id: put.id,
+//     gameGenre: put.game_genre,
+//     gameTitle: put.game_title,
+//     imageUrl: put.image_url,
+//     purchaseLocation: put.purchase_location,
+//     gameFormat: put.game_format,
+//     description: put.description,
+//   };
+//   fetch(`${clientCredentials.databaseURL}/videogames/${id}`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(gameObj),
+//   })
+//     .then((response) => resolve(response.data))
+//     .catch(reject);
+// });
 
 const deleteVideoGame = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/videogames/${id}`, {

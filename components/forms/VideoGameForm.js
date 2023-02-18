@@ -7,8 +7,8 @@ import Form from 'react-bootstrap/Form';
 import { Button } from 'react-bootstrap';
 import { updateVideoGame, createVideoGame } from '../../utils/data/videoGameData';
 import { getGameGenres } from '../../utils/data/gameGenreData';
-// import { useAuth } from '../../utils/context/authContext';
-import getUsers from '../../utils/data/userData';
+import { useAuth } from '../../utils/context/authContext';
+// import { getUsers } from '../../utils/data/userData';
 
 const initialState = {
   // id: 0,
@@ -24,9 +24,9 @@ const initialState = {
 export default function VideoGameForm({ gameObj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [gameGenres, setGameGenres] = useState([]);
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   // const [userUID, setUserUID] = useState();
-  // const { user } = useAuth();
+  const { user } = useAuth();
   const router = useRouter();
 
   const getAndSet = () => {
@@ -43,9 +43,9 @@ export default function VideoGameForm({ gameObj }) {
     getGameGenres().then(setGameGenres);
   }, []);
 
-  useEffect((id) => {
-    getUsers(id).then(setUsers);
-  }, []);
+  // useEffect((id) => {
+  //   getUsers(id).then(setUsers);
+  // }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -61,10 +61,8 @@ export default function VideoGameForm({ gameObj }) {
       updateVideoGame(formInput, gameObj.id).then(() => router.push(`/videoGame/edit/${gameObj.id}`));
     } else {
       // eslint-disable-next-line array-callback-return
-      users.map((user) => {
-        const payload = { ...formInput, userId: user.id };
-        createVideoGame(payload).then(() => router.push('/userCollection'));
-      });
+      const payload = { ...formInput, userId: user.id };
+      createVideoGame(payload).then(() => router.push('/userCollection'));
     }
   };
   return (

@@ -33,13 +33,13 @@ const createUser = (user) => new Promise((resolve, reject) => {
 const updateUser = (user, put, id) => new Promise((resolve, reject) => {
   const userObj = {
     id: put.id,
-    first_name: put.firstName,
-    last_name: put.lastName,
-    uid: put.uid,
-    about_me: put.aboutMe,
-    user_name: put.userName,
-    tag_line: put.tagLine,
-    image_url: put.imageUrl,
+    uid: user.uid,
+    firstName: put.first_name,
+    last_name: put.last_name,
+    about_me: put.about_me,
+    user_name: put.user_name,
+    tag_line: put.tag_line,
+    image_url: put.image_url,
   };
   fetch(`${clientCredentials.databaseURL}/users/${id}`, {
     method: 'PUT',
@@ -52,4 +52,14 @@ const updateUser = (user, put, id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getUsers, createUser, updateUser };
+const deleteUser = (userId) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/users/${userId}`, {
+    method: 'DELETE',
+  })
+    .then(resolve)
+    .catch(reject);
+});
+
+export {
+  getUsers, createUser, updateUser, deleteUser,
+};

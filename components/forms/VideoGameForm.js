@@ -37,10 +37,11 @@ export default function VideoGameForm({ gameObj }) {
 
   useEffect(() => {
     // if (gameObj?.id)setFormInput(gameObj);
-    if (gameObj.id) {
+    if (gameObj?.id) {
       setFormInput({
         id: gameObj.id,
-        gameGenre: Number(gameObj.gameGenre),
+        // gameGenre: Number(gameObj.gameGenre),
+        gameGenre: gameObj.gameGenre,
         gameTitle: gameObj.gameTitle,
         imageUrl: gameObj.imageUrl,
         purchaseLocation: gameObj.purchaseLocation,
@@ -69,8 +70,8 @@ export default function VideoGameForm({ gameObj }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (gameObj.id) {
-      updateVideoGame(formInput, gameObj.id).then(() => {
+    if (gameObj?.id) {
+      updateVideoGame(formInput).then(() => {
         setFormInput(initialState); router.push(`/videoGame/${gameObj.id}`);
       });
     } else {

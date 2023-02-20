@@ -63,13 +63,13 @@ const createVideoGame = (game) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const updateVideoGame = (user, put, id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/videogames/${id}`, {
+const updateVideoGame = (videoGame) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/videogames/${videoGame.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(put),
+    body: JSON.stringify(videoGame),
   })
     .then((response) => resolve(response.data))
     .catch(reject);

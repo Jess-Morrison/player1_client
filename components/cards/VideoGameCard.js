@@ -38,7 +38,7 @@ export default function VideoGameCard({
           <Link href={`/videoGame/edit/${gameById.id}`} passHref>
             <Button variant="danger" className="editBtn">EDIT</Button>
           </Link>
-          <Link href="/" passHref>
+          <Link href="/allGames" passHref>
             <Button variant="danger" onClick={deleteThisGame} className="deleteBtn">
               DELETE
             </Button>

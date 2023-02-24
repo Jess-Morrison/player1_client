@@ -12,20 +12,29 @@ const getComments = (uid = '') => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+// const getGameComments = (uid = '', id) => new Promise((resolve, reject) => {
+//   fetch(`${clientCredentials.databaseURL}/comments?game=${id}`, {
+//     method: 'GET',
+//     headers: {
+//       Authorization: uid,
+//     },
+//   })
+//     .then((response) => response.json())
+//     .then(resolve)
+//     .catch(reject);
+// });
+
+const getGameComments = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/comments?game=${id}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
 const getCommentById = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/comments/${id}`)
     .then((response) => response.json())
-    .then((data) => {
-      resolve({
-        id: data.id,
-        user: data.user,
-        game: data.game,
-        reactions: data.reactions,
-        comment_title: data.comment_title,
-        comment: data.comment,
-        date_created: data.date_created,
-      });
-    })
+    .then(resolve)
     .catch(reject);
 });
 
@@ -79,10 +88,28 @@ const deleteComment = (id) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
+// const getCommentById = (id) => new Promise((resolve, reject) => {
+//   fetch(`${clientCredentials.databaseURL}/comments/${id}`)
+//     .then((response) => response.json())
+//     .then((data) => {
+//       resolve({
+//         id: data.id,
+//         user: data.user,
+//         game: data.game,
+//         reactions: data.reactions,
+//         comment_title: data.comment_title,
+//         comment: data.comment,
+//         date_created: data.date_created,
+//       });
+//     })
+//     .catch(reject);
+// });
+
 export {
   getComments,
   createComment,
   updateComment,
   getCommentById,
   deleteComment,
+  getGameComments,
 };

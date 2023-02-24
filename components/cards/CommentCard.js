@@ -14,9 +14,15 @@ import { deleteComment, getCommentById } from '../../utils/data/commentData';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function CommentCard({
-  reactions, id, userId, comment, date_created, comment_title, onUpdate,
+  reactions, id, comment, date_created, comment_title, onUpdate,
 }) {
   const [commentId, setCommentId] = useState([]);
+  // console.warn(commentId);
+
+  useEffect(() => {
+    getCommentById(id).then(setCommentId);
+  }, [id]);
+
   const { user } = useAuth();
   const deleteThisComment = () => {
     if (window.confirm('Delete?')) {
@@ -24,9 +30,6 @@ export default function CommentCard({
       window.location.reload();
     }
   };
-  useEffect(() => {
-    getCommentById(id).then(setCommentId);
-  }, [id]);
 
   const btnsForUser = () => {
     // eslint-disable-next-line react/self-closing-comp
@@ -53,7 +56,7 @@ export default function CommentCard({
       <Card className="text-center" style={{ width: '25rem' }}>
         <Card.Body>
           <Card.Title>{comment_title}</Card.Title>
-          <Card.Title>{userId.first_name}</Card.Title>
+          <Card.Title>{commentId.user}</Card.Title>
           <Card.Text>{comment}</Card.Text>
           <Card.Text>{date_created}</Card.Text>
           <Card.Text>{reactions}</Card.Text>
@@ -72,7 +75,8 @@ export default function CommentCard({
 
 CommentCard.propTypes = {
   id: PropTypes.number.isRequired,
-  userId: PropTypes.number.isRequired,
+  // user: PropTypes.number.isRequired,
+  // userId: PropTypes.number.isRequired,
   reactions: PropTypes.number.isRequired,
   comment_title: PropTypes.string.isRequired,
   comment: PropTypes.string.isRequired,

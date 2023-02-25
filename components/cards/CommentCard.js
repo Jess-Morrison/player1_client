@@ -20,7 +20,7 @@ export default function CommentCard({
 }) {
   const [commentId, setCommentId] = useState([]);
   const [commentUser, setCommentUser] = useState([]);
-  console.warn(commentId);
+  // console.warn(commentId);
 
   const grabUser = () => {
     // const commentUsers = commentId.map((comments) => comments.user);

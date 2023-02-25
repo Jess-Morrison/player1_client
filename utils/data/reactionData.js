@@ -15,13 +15,7 @@ const getReactions = (uid = '') => new Promise((resolve, reject) => {
 const getReactionById = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/reactions/${id}`)
     .then((response) => response.json())
-    .then((data) => {
-      resolve({
-        id: data.id,
-        reactionName: data.reaction_name,
-        imageUrl: data.image_url,
-      });
-    })
+    .then(resolve)
     .catch(reject);
 });
 
@@ -30,3 +24,13 @@ export {
   getReactionById,
 
 };
+
+// .then((response) => response.json())
+//     .then((data) => {
+//       resolve({
+//         id: data.id,
+//         reactionName: data.reaction_name,
+//         imageUrl: data.image_url,
+//       });
+//     })
+//     .catch(reject);

@@ -25,8 +25,8 @@ export default function CommentCard({
   const grabUser = () => {
     // const commentUsers = commentId.map((comments) => comments.user);
     // setCommentUser(commentUsers);
-    const user = commentId.length > 0 ? commentId[0].user : null;
-    setCommentUser(user);
+    const cUser = commentId.length > 0 ? commentId.user : null;
+    setCommentUser(cUser);
   };
   useEffect(() => {
     grabUser();
@@ -70,7 +70,7 @@ export default function CommentCard({
         <Card.Body>
           <Card.Title>{comment_title}</Card.Title>
           {/* <Card.Title>{commentId.commentUser}</Card.Title> */}
-          <Card.Title>{commentUser.first_name}</Card.Title>
+          <Card.Title>{commentUser ? commentUser.first_name : null}</Card.Title>
           <Card.Text>{comment}</Card.Text>
           <Card.Text>{date_created}</Card.Text>
           <Card.Text>{reactions}</Card.Text>

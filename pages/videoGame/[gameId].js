@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
+import Button from 'react-bootstrap/Button';
 import GameComments from '../../components/gameComponents/gameComments';
 import VideoGameCard from '../../components/cards/VideoGameCard';
 // import CommentCard from '../../components/cards/CommentCard';
@@ -42,6 +44,10 @@ export default function ViewVideoGame() {
 
   return (
     <>
+      <Link href="/comment/new" passHref>
+        {/* href={`/movieEntry/movieComment/${firebaseKey}`} passHref> */}
+        <Button style={{ 'background-color': '#84190B' }} variant="create">New Comment</Button>
+      </Link>
       <div className="view-card">
         <VideoGameCard
           key={viewVideoGame.id}

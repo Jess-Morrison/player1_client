@@ -50,7 +50,7 @@ export default function VideoGameForm({ gameObj }) {
       });
     }
   }, [gameObj, user]);
-  console.warn(gameObj);
+  // console.warn(gameObj);
 
   useEffect(() => {
     getGameGenres().then(setGameGenres);

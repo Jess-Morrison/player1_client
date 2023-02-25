@@ -15,18 +15,19 @@ const getVideoGames = (uid = '') => new Promise((resolve, reject) => {
 const getVideoGameById = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/videogames/${id}`)
     .then((response) => response.json())
-    .then((data) => {
-      resolve({
-        id: data.id,
-        user: data.user,
-        gameGenre: data.game_genre,
-        gameTitle: data.game_title,
-        imageUrl: data.image_url,
-        purchaseLocation: data.purchase_location,
-        gameFormat: data.game_format,
-        description: data.description,
-      });
-    })
+    .then(resolve)
+    // .then((data) => {
+    //   resolve({
+    //     id: data.id,
+    //     user: data.user,
+    //     gameGenre: data.game_genre,
+    //     gameTitle: data.game_title,
+    //     imageUrl: data.image_url,
+    //     purchaseLocation: data.purchase_location,
+    //     gameFormat: data.game_format,
+    //     description: data.description,
+    //   });
+    // })
     .catch(reject);
 });
 

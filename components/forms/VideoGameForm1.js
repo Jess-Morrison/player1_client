@@ -37,7 +37,7 @@ export default function VideoGameForm({ obj }) {
     getGameGenres().then(setGameGenres);
   }, []);
 
-  console.warn(gameGenres);
+  // console.warn(gameGenres);
 
   // useEffect((firebaseKey) => {
   //   getUsers(firebaseKey).then(setUsers);

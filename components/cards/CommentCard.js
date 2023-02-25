@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
-import { deleteComment, getComments } from '../../utils/data/commentData';
+import { deleteComment, getCommentById } from '../../utils/data/commentData';
 // import { deleteComment } from '../../utils/data/commentData';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -33,7 +33,7 @@ export default function CommentCard({
   }, []);
 
   useEffect(() => {
-    getComments(id).then(setCommentId);
+    getCommentById(id).then(setCommentId);
   }, [id]);
 
   const { user } = useAuth();

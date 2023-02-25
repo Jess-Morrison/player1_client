@@ -33,7 +33,7 @@ export default function CommentForm({ commentObj }) {
     // const commentUsers = commentId.map((comments) => comments.user);
     // setCommentUser(commentUsers);
     const gId = gameId.length > 0 ? gameId.id : null;
-    const g = games.length > 0 ? games.id : null;
+    // const g = games.length > 0 ? games.id : null;
     if (gameId === games.id) {
       setGameId(gId);
     }
@@ -92,7 +92,7 @@ export default function CommentForm({ commentObj }) {
     } else {
       // eslint-disable-next-line array-callback-return
       const payload = {
-        ...formInput, gameId: games.id, userId: user.id, date_created: new Date().toLocaleString({ timeZone: 'UTC' }),
+        ...formInput, gameId: gameId.id, userId: user.id, date_created: new Date().toLocaleString({ timeZone: 'UTC' }),
       };
       createComment(payload).then(() => router.push('/'));
     }

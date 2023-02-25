@@ -78,7 +78,6 @@ export default function CommentCard({
             <Button variant="info">EDIT</Button>
           </Link> */}
           {/* /products?orderBy="seller"&equalTo=${id} */}
-          /The above route doesnt work because it is not the file hirearcy, dynamic routes grab the file path
           {btnsForUser()}
         </Card.Body>
         <Card.Footer />

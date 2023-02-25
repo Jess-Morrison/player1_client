@@ -5,22 +5,35 @@
 // Will add the delete and update buttons here and base the logic off of the user
 // Will also add the reactions to the comment card
 
+// import React from 'react';
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
-import { deleteComment, getCommentById } from '../../utils/data/commentData';
+import { deleteComment, getComments } from '../../utils/data/commentData';
+// import { deleteComment } from '../../utils/data/commentData';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function CommentCard({
-  reactions, id, comment, date_created, comment_title, onUpdate,
+  id, reactions, comment_title, comment, date_created, onUpdate,
 }) {
   const [commentId, setCommentId] = useState([]);
-  // console.warn(commentId);
+  const [commentUser, setCommentUser] = useState([]);
+  console.warn(commentId);
+
+  const grabUser = () => {
+    // const commentUsers = commentId.map((comments) => comments.user);
+    // setCommentUser(commentUsers);
+    const user = commentId.length > 0 ? commentId[0].user : null;
+    setCommentUser(user);
+  };
+  useEffect(() => {
+    grabUser();
+  }, []);
 
   useEffect(() => {
-    getCommentById(id).then(setCommentId);
+    getComments(id).then(setCommentId);
   }, [id]);
 
   const { user } = useAuth();
@@ -56,7 +69,8 @@ export default function CommentCard({
       <Card className="text-center" style={{ width: '25rem' }}>
         <Card.Body>
           <Card.Title>{comment_title}</Card.Title>
-          <Card.Title>{commentId.user}</Card.Title>
+          {/* <Card.Title>{commentId.commentUser}</Card.Title> */}
+          <Card.Title>{commentUser.first_name}</Card.Title>
           <Card.Text>{comment}</Card.Text>
           <Card.Text>{date_created}</Card.Text>
           <Card.Text>{reactions}</Card.Text>
@@ -77,9 +91,39 @@ CommentCard.propTypes = {
   id: PropTypes.number.isRequired,
   // user: PropTypes.number.isRequired,
   // userId: PropTypes.number.isRequired,
+  // commentUser: PropTypes.shape({
+  //   id: PropTypes.number.isRequired,
+  //   image_url: PropTypes.string.isRequired,
+  //   first_name: PropTypes.string.isRequired,
+  // }),
   reactions: PropTypes.number.isRequired,
   comment_title: PropTypes.string.isRequired,
   comment: PropTypes.string.isRequired,
   date_created: PropTypes.number.isRequired,
   onUpdate: PropTypes.func.isRequired,
 };
+// id, reactions, comment_title, comment, date_created,
+
+// id: PropTypes.number.isRequired,
+//   // user: PropTypes.number.isRequired,
+//   // userId: PropTypes.number.isRequired,
+//   reactions: PropTypes.number.isRequired,
+//   comment_title: PropTypes.string.isRequired,
+//   comment: PropTypes.string.isRequired,
+//   date_created: PropTypes.number.isRequired,
+//   onUpdate: PropTypes.func.isRequired,
+
+// commentObj: PropTypes.shape({
+//   id: PropTypes.number,
+//   // userId: PropTypes.number.isRequired,
+//   reactions: PropTypes.number,
+//   comment_title: PropTypes.string,
+//   comment: PropTypes.string,
+//   date_created: PropTypes.number,
+//   user: PropTypes.shape({
+//     id: PropTypes.number.isRequired,
+//     image_url: PropTypes.string.isRequired,
+//     first_name: PropTypes.string.isRequired,
+//   }),
+// }).isRequired,
+// onUpdate: PropTypes.func.isRequired,

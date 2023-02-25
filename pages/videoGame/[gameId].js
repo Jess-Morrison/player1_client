@@ -4,11 +4,11 @@ import GameComments from '../../components/gameComponents/gameComments';
 import VideoGameCard from '../../components/cards/VideoGameCard';
 // import CommentCard from '../../components/cards/CommentCard';
 import { getVideoGameById } from '../../utils/data/videoGameData';
-import { getGameComments } from '../../utils/data/commentData';
+// import { getGameComments } from '../../utils/data/commentData';
 
 export default function ViewVideoGame() {
   const [viewVideoGame, setVideoGame] = useState({});
-  const [comments, setComments] = useState([]);
+  // const [comments, setComments] = useState([]);
   // console.warn(comments);
   const router = useRouter();
   const { gameId } = router.query;
@@ -17,11 +17,11 @@ export default function ViewVideoGame() {
     getVideoGameById(gameId).then(setVideoGame);
   }, [gameId]);
 
-  useEffect(() => {
-    if (gameId) {
-      getGameComments(gameId).then(setComments);
-    }
-  }, [gameId]);
+  // useEffect(() => {
+  //   if (gameId) {
+  //     getGameComments(gameId).then(setComments);
+  //   }
+  // }, [gameId]);
 
   // const gameComments = () => {
   //   {viewVideoGame.map((game) => (
@@ -32,14 +32,12 @@ export default function ViewVideoGame() {
   //   )};
 
   const gameComments = () => (
-    <>
-      {comments.map((comment) => (viewVideoGame.id === comment.game.id ? (
-        <GameComments
-          // key={comment.id}
-          onUpdate={getGameComments}
-        />
-      ) : null))}
-    </>
+    // <>
+    //   {comments.map((comment) => (viewVideoGame.id === comment.game.id ? (
+    //     <GameComments />
+    //   ) : null))}
+    // </>
+    <GameComments />
   );
 
   return (

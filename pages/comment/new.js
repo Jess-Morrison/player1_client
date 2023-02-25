@@ -1,7 +1,10 @@
 import React from 'react';
+import CommentForm from '../../components/forms/CommentForm';
 
-export default function form() {
+export default function New() {
   return (
-    <div>[id]</div>
+    <div className="create-form" style={{ height: '45rem', padding: '10%' }}>
+      <CommentForm />
+    </div>
   );
 }

@@ -38,19 +38,10 @@ const getCommentById = (id) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-const createComment = (user, post) => new Promise((resolve, reject) => {
-  const commentObj = {
-    user: user.id,
-    game: post.game,
-    reactions: post.reactions,
-    comment_title: post.comment_title,
-    comment: post.comment,
-    date_created: post.date_created,
-    // uid: user.uid,
-  };
+const createComment = (comment) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/comments`, {
     method: 'POST',
-    body: JSON.stringify(commentObj),
+    body: JSON.stringify(comment),
     headers: {
       'Content-Type': 'application/json',
     },
@@ -59,21 +50,13 @@ const createComment = (user, post) => new Promise((resolve, reject) => {
     .catch((error) => reject(error));
 });
 
-const updateComment = (put) => new Promise((resolve, reject) => {
-  const commentObj = {
-    id: put.id,
-    game: put.game,
-    reactions: put.reactions,
-    comment_title: put.comment_title,
-    comment: put.comment,
-    date_created: put.date_created,
-  };
-  fetch(`${clientCredentials.databaseURL}/comments/${put.id}`, {
+const updateComment = (comment) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/comments/${comment.id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(commentObj),
+    body: JSON.stringify(comment),
   })
     .then((response) => resolve(response.data))
     .catch(reject);
@@ -102,6 +85,47 @@ const deleteComment = (id) => new Promise((resolve, reject) => {
 //         date_created: data.date_created,
 //       });
 //     })
+//     .catch(reject);
+// });
+
+// const createComment = (user, post) => new Promise((resolve, reject) => {
+//   const commentObj = {
+//     user: user.id,
+//     game: post.game,
+//     reactions: post.reactions,
+//     comment_title: post.comment_title,
+//     comment: post.comment,
+//     date_created: post.date_created,
+//     // uid: user.uid,
+//   };
+//   fetch(`${clientCredentials.databaseURL}/comments`, {
+//     method: 'POST',
+//     body: JSON.stringify(commentObj),
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//   })
+//     .then((resp) => resolve(resp.json()))
+//     .catch((error) => reject(error));
+// });
+
+// const updateComment = (put) => new Promise((resolve, reject) => {
+//   const commentObj = {
+//     id: put.id,
+//     game: put.game,
+//     reactions: put.reactions,
+//     comment_title: put.comment_title,
+//     comment: put.comment,
+//     date_created: put.date_created,
+//   };
+//   fetch(`${clientCredentials.databaseURL}/comments/${put.id}`, {
+//     method: 'PUT',
+//     headers: {
+//       'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify(commentObj),
+//   })
+//     .then((response) => resolve(response.data))
 //     .catch(reject);
 // });
 

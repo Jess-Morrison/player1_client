@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
-import { deleteComment, getComments } from '../../utils/data/commentData';
+import { deleteComment, getCommentById } from '../../utils/data/commentData';
 // import { deleteComment } from '../../utils/data/commentData';
 import { useAuth } from '../../utils/context/authContext';
 
@@ -25,15 +25,15 @@ export default function CommentCard({
   const grabUser = () => {
     // const commentUsers = commentId.map((comments) => comments.user);
     // setCommentUser(commentUsers);
-    const user = commentId.length > 0 ? commentId[0].user : null;
-    setCommentUser(user);
+    const cUser = commentId.length > 0 ? commentId.user : null;
+    setCommentUser(cUser);
   };
   useEffect(() => {
     grabUser();
   }, []);
 
   useEffect(() => {
-    getComments(id).then(setCommentId);
+    getCommentById(id).then(setCommentId);
   }, [id]);
 
   const { user } = useAuth();
@@ -70,7 +70,7 @@ export default function CommentCard({
         <Card.Body>
           <Card.Title>{comment_title}</Card.Title>
           {/* <Card.Title>{commentId.commentUser}</Card.Title> */}
-          <Card.Title>{commentUser.first_name}</Card.Title>
+          <Card.Title>{commentUser ? commentUser.first_name : null}</Card.Title>
           <Card.Text>{comment}</Card.Text>
           <Card.Text>{date_created}</Card.Text>
           <Card.Text>{reactions}</Card.Text>

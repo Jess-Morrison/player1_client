@@ -8,7 +8,7 @@ export default function ReactionViews() {
   const router = useRouter();
   const { id } = router.query;
 
-  console.warn(reactions);
+  // console.warn(reactions);
 
   useEffect(() => {
     getReactions(id).then(setReactions);
@@ -18,7 +18,7 @@ export default function ReactionViews() {
     // {reactions.map((reaction) => (
     <div className="create-form" style={{ height: '45rem', padding: '10%' }}>
       {reactions.map((reaction) => (
-        <ReactionCard key={reaction.id} reactionObj={reactions} />
+        <ReactionCard key={reaction.id} image_url={reaction.image_url} reactionObj={reactions} />
       ))}
     </div>
     // ))}

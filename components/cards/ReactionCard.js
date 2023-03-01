@@ -75,6 +75,7 @@ function ReactionCard({ reaction_name, image_url }) {
 
 ReactionCard.propTypes = {
   // id: PropTypes.number.isRequired,
+  // comment_id: PropTypes.number.isRequired,
   reaction_name: PropTypes.string.isRequired,
   image_url: PropTypes.string.isRequired,
   // onUpdate: PropTypes.func.isRequired,

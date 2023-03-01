@@ -12,7 +12,9 @@ import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 import { deleteComment, getCommentById } from '../../utils/data/commentData';
+// import ReactionCardOne from './ReactionCardOne';
 // import { deleteComment } from '../../utils/data/commentData';
+import ReactionViews from '../../pages/reactions';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function CommentCard({
@@ -82,6 +84,7 @@ export default function CommentCard({
         </Card.Body>
         <Card.Footer />
       </Card>
+      <ReactionViews />
     </>
   );
 }

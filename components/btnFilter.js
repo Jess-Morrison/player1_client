@@ -1,35 +1,21 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../utils/context/authContext';
-import { getVideoGames } from '../../utils/data/videoGameData';
-// import { getGameGenres } from '../../utils/data/gameGenreData';
-import VideoGameCard from '../cards/VideoGameCard';
+import { getVideoGames } from '../utils/data/videoGameData';
+// import { getGameGenres } from '../utils/data/gameGenreData';
+import VideoGameCard from './cards/VideoGameCard';
 // import SearchComponent from './searchComponent';
 
-export default function UserBtnFilter() {
+export default function BtnFilter() {
   const [games, setGames] = useState([]);
   // const [genres, setGenres] = useState([]);
   const [genresFilter, setGenresFilter] = useState([]);
   const [gameFilter, setGameFilter] = useState(null);
-  const { user } = useAuth();
 
   useEffect(() => {
     getVideoGames().then(setGames);
   }, []);
-  console.warn(genresFilter);
 
   // useEffect(() => {
-  //   getGameGenres().then(setGenresFilter);
-  // }, []);
-
-  // const gameGenre = () => games.map((game) => genresFilter.map((genreFilter) => {
-  //   if (genreFilter.id === game.game_genre.id) {
-  //     getGameGenres().then(setGenres);
-  //   }
-  //   return null;
-  // }));
-
-  // useEffect(() => {
-  //   gameGenre();
+  //   getGameGenres().then(setGenres);
   // }, []);
 
   // Get Movie info and grabs genre data then puts it in a State
@@ -37,7 +23,7 @@ export default function UserBtnFilter() {
     const gGenres = [];
     games.forEach((game) => {
       const gameType = game?.game_genre.game_genre_name;
-      if (gameType && !gGenres.includes(gameType) && user.uid === game.user.uid) {
+      if (gameType && !gGenres.includes(gameType)) {
         gGenres.push(gameType);
       }
     });
@@ -55,7 +41,7 @@ export default function UserBtnFilter() {
   const renderGames = () => {
     if (games.length) {
       return games.map((game) => {
-        if (gameFilter === null && user.uid === game.user.uid) {
+        if (gameFilter === null) {
           return (
             <VideoGameCard
               key={game.id}
@@ -71,7 +57,7 @@ export default function UserBtnFilter() {
             />
           );
         }
-        if (game.game_genre.game_genre_name === gameFilter && user.uid === game.user.uid) {
+        if (game.game_genre.game_genre_name === gameFilter) {
           return (
             <VideoGameCard
               key={game.id}
@@ -93,6 +79,7 @@ export default function UserBtnFilter() {
   };
 
   // Function that creates filter buttons
+
   const renderGenresFilter = () => {
     if (genresFilter.length > 0) {
       return genresFilter.map((genreFilter) => (
@@ -109,49 +96,6 @@ export default function UserBtnFilter() {
     }
     return null;
   };
-
-  // const renderGenresFilter = () => {
-  //   // if (genreFilter.id === console.warn(newGame)) {
-  //   // eslint-disable-next-line implicit-arrow-linebreak
-  //   genres.map((genreFilterTwo) => (
-  //     <button
-  //       key={genreFilterTwo}
-  //       type="button"
-  //       style={{ margin: '5px', 'background-color': '#84190B' }}
-  //       className="btn btn-secondary filterButton"
-  //       onClick={() => setGameFilter(genreFilter)}
-  //     >
-  //       {genreFilterTwo}
-  //     </button>
-  //   ));
-  // };
-  // return null;
-
-  // console.warn(genresFilter);
-
-  // const renderGenresFilter = () => {
-  //   const filteredGenres = games.reduce((acc, game) => {
-  //     if (acc.includes(game.game_genre.game_genre_name)) {
-  //       return acc;
-  //     }
-  //     if (genresFilter.includes(game.game_genre.game_genre_name)) {
-  //       return [...acc, game.game_genre.game_genre_name];
-  //     }
-  //     return acc;
-  //   }, []);
-
-  //   return filteredGenres.map((filteredGenre) => (
-  //     <button
-  //       key={filteredGenre}
-  //       type="button"
-  //       style={{ margin: '5px', backgroundColor: '#84190B' }}
-  //       className="btn btn-secondary filterButton"
-  //       onClick={() => setGameFilter(filteredGenre)}
-  //     >
-  //       {filteredGenre}
-  //     </button>
-  //   ));
-  // };
 
   // Function that renders buttons to the DOM
   return (

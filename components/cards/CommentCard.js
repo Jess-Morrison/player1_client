@@ -12,7 +12,9 @@ import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
 import { deleteComment, getCommentById } from '../../utils/data/commentData';
+// import ReactionCardOne from './ReactionCardOne';
 // import { deleteComment } from '../../utils/data/commentData';
+import ReactionViewsTwo from '../../pages/reactions';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function CommentCard({
@@ -20,7 +22,7 @@ export default function CommentCard({
 }) {
   const [commentId, setCommentId] = useState([]);
   const [commentUser, setCommentUser] = useState([]);
-  console.warn(commentId);
+  // console.warn(commentId);
 
   const grabUser = () => {
     // const commentUsers = commentId.map((comments) => comments.user);
@@ -82,6 +84,7 @@ export default function CommentCard({
         </Card.Body>
         <Card.Footer />
       </Card>
+      <ReactionViewsTwo />
     </>
   );
 }

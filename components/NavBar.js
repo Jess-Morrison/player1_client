@@ -21,7 +21,7 @@ export default function NavBar() {
         <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
-              <Link passHref href="/allGames">
+              <Link passHref href="/allGamesFilter">
                 <a className="nav-link">
                   Home
                 </a>

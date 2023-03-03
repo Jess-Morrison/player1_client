@@ -19,7 +19,10 @@ function ReactionCardOne({
   const [count, setCount] = useState(0);
   const [comments, setComments] = useState([]);
   const [commentId, setCommentId] = useState([]);
+  // const [rcSet, setRcSet] = useState([]);
   const { user } = useAuth();
+
+  // console.warn(rcSet);
   useEffect(() => {
     getComments().then(setComments);
   }, []);
@@ -68,7 +71,9 @@ function ReactionCardOne({
     const payload = {
       comment: commentId.id, user: user.id,
     };
-    createCommentReaction(payload);
+    createCommentReaction(payload).then((response) => {
+      setCount(response.count);
+    });
   };
 
   return (

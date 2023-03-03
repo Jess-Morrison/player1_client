@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import ReactionCardOne from '../components/cards/ReactionCard';
 import { getReactions } from '../utils/data/reactionData';
 
-export default function ReactionViews() {
+export default function ReactionViewsTwo() {
   const [reactions, setReactions] = useState([]);
   const router = useRouter();
   const { id } = router.query;

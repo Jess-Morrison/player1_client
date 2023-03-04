@@ -11,17 +11,25 @@ import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
 import Link from 'next/link';
+// import { useRouter } from 'next/router';
 import { deleteComment, getCommentById } from '../../utils/data/commentData';
+// import { deleteComment, getCommentById, getGameComments } from '../../utils/data/commentData';
 // import ReactionCardOne from './ReactionCardOne';
 // import { deleteComment } from '../../utils/data/commentData';
-import ReactionViewsTwo from '../../pages/reactions';
+// import ReactionViewsTwo from '../../pages/reactionstwo';
+import Reactions from '../Reaction';
+// import ReactionContainer from '../commentComponents/commentReactionContainer';
+import { getReactions } from '../../utils/data/reactionData';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function CommentCard({
-  id, reactions, comment_title, comment, date_created, onUpdate,
+  id, comment_title, comment, date_created, onUpdate,
 }) {
   const [commentId, setCommentId] = useState([]);
   const [commentUser, setCommentUser] = useState([]);
+  const [reactions, setReactions] = useState([]);
+  // const router = useRouter();
+  // const [comments, setComments] = useState([]);
   // console.warn(commentId);
 
   const grabUser = () => {
@@ -34,8 +42,19 @@ export default function CommentCard({
     grabUser();
   }, []);
 
+  const getAndSetComment = () => {
+    getCommentById(commentId).then(setCommentId).then(() => {
+      getReactions(id).then(setReactions);
+    });
+  };
+
+  // useEffect(() => {
+  //   getCommentById(id).then(setCommentId);
+  // }, [id]);
   useEffect(() => {
-    getCommentById(id).then(setCommentId);
+    getAndSetComment();
+    // getCommentById(id).then(setCommentId);
+    // getGameComments(id).then(setComments);
   }, [id]);
 
   const { user } = useAuth();
@@ -84,7 +103,15 @@ export default function CommentCard({
         </Card.Body>
         <Card.Footer />
       </Card>
-      <ReactionViewsTwo />
+      <Reactions commentId={id} />
+      {/* {user.id === commentId.user.id ? (
+        <div className="post-card-buttons">
+          <Button variant="outline-dark" type="button" className="gear" onClick={() => router.push(`/comments/edit/${id}`)}></Button>
+          <Button variant="outline-dark" type="button" className="trash" onClick={() => deletePost()}></Button>
+        </div>
+      ) : ''} */}
+      {/* <ReactionViewsTwo comments={comments.id} /> */}
+      {/* {/* <ReactionContainer reactions={reactions} commentReactions={commentId.reactions} user={user} commentId={commentId} onUpdate={getAndSetComment} />  */}
     </>
   );
 }
@@ -98,7 +125,7 @@ CommentCard.propTypes = {
   //   image_url: PropTypes.string.isRequired,
   //   first_name: PropTypes.string.isRequired,
   // }),
-  reactions: PropTypes.number.isRequired,
+  // reactions: PropTypes.number.isRequired,
   comment_title: PropTypes.string.isRequired,
   comment: PropTypes.string.isRequired,
   date_created: PropTypes.number.isRequired,
@@ -129,3 +156,6 @@ CommentCard.propTypes = {
 //   }),
 // }).isRequired,
 // onUpdate: PropTypes.func.isRequired,
+// {reactions.map((reaction) => (
+//   <Reactions commentId={id} key={reaction.id} image_url={reaction.image_url} reactionObj={reactions} />
+// ))}

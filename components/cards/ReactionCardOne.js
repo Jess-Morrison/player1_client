@@ -14,7 +14,7 @@ import { useAuth } from '../../utils/context/authContext';
 // import { getReactionById } from '../../utils/data/reactionData';
 
 function ReactionCardOne({
-  reaction_name, image_url, commentReactions, comment_id,
+  commentReactions, comment_id, reactions,
 }) {
   const [count, setCount] = useState(0);
   const [comments, setComments] = useState([]);
@@ -72,14 +72,14 @@ function ReactionCardOne({
       comment: commentId.id, user: user.id,
     };
     createCommentReaction(payload).then((response) => {
-      setCount(response.count);
+      console.warn(setCount(response.count));
     });
   };
 
   return (
-    <Button variant="primary" onClick={handleIncrement} commentReactions={commentReactions} comment_id={comment_id}>
+    <Button variant="primary" onClick={handleIncrement} reactions={reactions} commentReactions={commentReactions} user={user} comment_id={comment_id}>
       {/* {reactions.map((reaction) => ( */}
-      <Card.Img variant="top" src={image_url} alt={reaction_name} />
+      <Card.Img variant="top" src={reactions.image_url} alt={reactions.reaction_name} />
       {/* ))} */}
       <Badge bg="secondary">{count}</Badge>
       {/* </>
@@ -90,10 +90,18 @@ function ReactionCardOne({
 }
 
 ReactionCardOne.propTypes = {
+  reactions: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.number,
+    reaction_name: PropTypes.string,
+    image_url: PropTypes.string,
+  })).isRequired,
   // id: PropTypes.number.isRequired,
   comment_id: PropTypes.number.isRequired,
-  reaction_name: PropTypes.string.isRequired,
-  image_url: PropTypes.string.isRequired,
+  // reaction_name: PropTypes.string.isRequired,
+  // image_url: PropTypes.string.isRequired,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+  }).isRequired,
   commentReactions: PropTypes.arrayOf(PropTypes.shape({
     id: PropTypes.number,
     user_id: PropTypes.number,

@@ -42,8 +42,16 @@ const createCommentReaction = (obj) => new Promise((resolve, reject) => {
 });
 
 const getCForDelete = (id, commentId, userId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/commentreactions?id=${id}&commentId=${commentId}&userId=${userId}`)
+  fetch(`${clientCredentials.databaseURL}/commentreactions?id=${id}&comment=${commentId}&userId=${userId}`)
     .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const deleteCommentReaction = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/commentreactions/${id}`, {
+    method: 'DELETE',
+  })
     .then(resolve)
     .catch(reject);
 });
@@ -54,6 +62,7 @@ export {
   getCForDelete,
   deleteReaction,
   createCommentReaction,
+  deleteCommentReaction,
 
 };
 

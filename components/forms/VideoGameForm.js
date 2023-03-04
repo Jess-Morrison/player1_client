@@ -41,11 +41,11 @@ export default function VideoGameForm({ gameObj }) {
       setFormInput({
         id: gameObj.id,
         // gameGenre: Number(gameObj.gameGenre),
-        gameGenre: gameObj.gameGenre,
-        gameTitle: gameObj.gameTitle,
-        imageUrl: gameObj.imageUrl,
-        purchaseLocation: gameObj.purchaseLocation,
-        gameFormat: gameObj.gameFormat,
+        gameGenre: gameObj.game_genre,
+        gameTitle: gameObj.game_title,
+        imageUrl: gameObj.image_url,
+        purchaseLocation: gameObj.purchase_location,
+        gameFormat: gameObj.game_format,
         description: gameObj.description,
       });
     }
@@ -133,16 +133,16 @@ export default function VideoGameForm({ gameObj }) {
 
 VideoGameForm.propTypes = {
   gameObj: PropTypes.shape({
-    gameGenre: PropTypes.shape({
+    game_genre: PropTypes.shape({
       id: PropTypes.number,
       game_genre_name: PropTypes.string,
     }),
     id: PropTypes.number,
     // game_genre: PropTypes.number,
-    gameTitle: PropTypes.string,
-    imageUrl: PropTypes.string,
-    purchaseLocation: PropTypes.string,
-    gameFormat: PropTypes.string,
+    game_title: PropTypes.string,
+    image_url: PropTypes.string,
+    purchase_location: PropTypes.string,
+    game_format: PropTypes.string,
     description: PropTypes.string,
     user: PropTypes.shape({
       id: PropTypes.number,

@@ -15,7 +15,7 @@ export default function UserBtnFilter() {
   useEffect(() => {
     getVideoGames().then(setGames);
   }, []);
-  console.warn(genresFilter);
+  // console.warn(genresFilter);
 
   // useEffect(() => {
   //   getGameGenres().then(setGenresFilter);

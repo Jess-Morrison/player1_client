@@ -89,6 +89,7 @@ function ReactionsTwo({ commentId }) {
         // reactionImage: reactions.image_url,
       };
       createCommentReaction(commentReaction).then(() => getTheContent());
+      window.location.reload();
     }
     if (e.target.className === 'reactions') {
       setShowPop(!showPop);

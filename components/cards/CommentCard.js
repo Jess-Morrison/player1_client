@@ -21,7 +21,13 @@ import { deleteComment, getCommentById } from '../../utils/data/commentData';
 // import Reactions from '../Reaction';
 import ReactionsTwo from '../Reactionstwo';
 // import ReactionContainer from '../commentComponents/commentReactionContainer';
-import { getReactions, getCommentReactions } from '../../utils/data/reactionData';
+import {
+  getReactions, getCommentReactions, deleteCommentReaction, getReactionById, getCForDelete, getCommentReactionsById,
+} from '../../utils/data/reactionData';
+// import {
+//   getReactions, getCommentReactions,
+// } from '../../utils/data/reactionData';
+
 import { useAuth } from '../../utils/context/authContext';
 
 export default function CommentCard({
@@ -30,9 +36,18 @@ export default function CommentCard({
   const [commentId, setCommentId] = useState([]);
   const [commentUser, setCommentUser] = useState([]);
   const [reactions, setReactions] = useState([]);
+  const [setReactionsById] = useState([]);
   const [commentRts, setCommentReactions] = useState([]);
+  const [commentRtsById, setCommentReactionsById] = useState([]);
+  // const [count, setCount] = useState(0);
+  // const [negCount, setNegCount] = useState(1);
+  const { user } = useAuth();
   // const router = useRouter();
   // const [comments, setComments] = useState([]);
+
+  const getTheContent = () => {
+    getReactionById(user.id, commentId).then(setReactionsById);
+  };
 
   const grabUser = () => {
     // const commentUsers = commentId.map((comments) => comments.user);
@@ -51,17 +66,68 @@ export default function CommentCard({
   // };
 
   useEffect(() => {
+    getCommentReactionsById(id).then(setCommentReactionsById);
+  }, [id]);
+
+  useEffect(() => {
     grabUser();
   }, []);
 
   const getAndSetComment = () => {
-    getCommentById(id).then(setCommentId).then(() => {
-      getReactions(id).then(setReactions).then(() => {
-        getCommentReactions().then(setCommentReactions);
-      });
+    getCommentById(id).then(setCommentId);
+  };
+  console.warn(commentRtsById);
+
+  const getAndSetReaction = () => {
+    getReactions(id).then(setReactions).then(() => {
+      getCommentReactions().then(setCommentReactions);
     });
   };
-  // console.warn(commentId);
+
+  // eslint-disable-next-line no-shadow
+  // const getCForDelete = (id, commentId, userId) => getCommentReactions(commentId).then((commentReactions) => {
+  //   const commentReaction = commentReactions.find((c) => c.id === id && c.user === userId);
+  //   return commentReaction ? [commentReaction] : [];
+  // });
+
+  const handleClick = (e) => {
+    // eslint-disable-next-line no-shadow
+    const { id } = e.target;
+
+    //   if (id !== '') {
+    //     getCForDelete(id, commentId, user.id).then(() => {
+    //       // console.warn(commentReaction);
+    //       // commentReactions.map((commentReaction) => {
+    //       // console.warn(commentReactions);
+    //       // deleteCommentReaction(commentRtsById.id).then(() => onUpdate());
+    //       // deleteCommentReaction(commentRtsById.id).then(() => getTheContent());
+    //       // deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
+    //       deleteCommentReaction(commentRtsById.id).then(() => {
+    //         getTheContent();
+    //         window.location.reload();
+    //         // window.location.reload();
+    //         // });
+    //         // return null;
+    //       });
+    //     });
+    //   } return null;
+    // };
+    if (id !== '') {
+      getCForDelete(id, commentId, user.id).then((commentReaction) => {
+        deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
+        window.location.reload();
+      });
+    }
+  };
+  // commentRts.map((commentRt) => {
+  //   if (user.id !== commentRt.user.id) {
+  //     setCount(count + 1);
+  //   } else {
+  //     setNegCount(negCount - 1);
+  //   }
+  //   return null;
+  // });
+
   console.warn(commentRts);
 
   const getCommentR = () => commentRts.map((commentRt) => {
@@ -71,6 +137,7 @@ export default function CommentCard({
           <input
             className={`display-reactions ${reactions.id === commentRt.reaction ? reactions.image_url : ''}`}
             type="image"
+            onClick={handleClick}
             id={commentRt.reaction.id}
             src={commentRt.reaction.image_url}
             alt={reactions.reaction_name}
@@ -82,17 +149,20 @@ export default function CommentCard({
     return null;
   });
 
+  // };
+
   // useEffect(() => {
   //   getCommentById(id).then(setCommentId);
   // }, [id]);
   useEffect(() => {
     getAndSetComment();
+    getAndSetReaction();
     getCommentR();
+    // getTheContent();
     // getCommentById(id).then(setCommentId);
     // getGameComments(id).then(setComments);
   }, [id]);
 
-  const { user } = useAuth();
   const deleteThisComment = () => {
     if (window.confirm('Delete?')) {
       deleteComment(id).then(() => onUpdate());

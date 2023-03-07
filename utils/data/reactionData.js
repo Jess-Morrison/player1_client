@@ -42,7 +42,7 @@ const createCommentReaction = (obj) => new Promise((resolve, reject) => {
 });
 
 const getCommentReactionsById = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/commentreactions/${id}`)
+  fetch(`${clientCredentials.databaseURL}/commentreactions?id=${id}`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);

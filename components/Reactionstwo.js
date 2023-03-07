@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react';
-import Badge from 'react-bootstrap/Badge';
+// import Badge from 'react-bootstrap/Badge';
 import {
   Popover, OverlayTrigger, Button,
 } from 'react-bootstrap';
@@ -11,9 +11,9 @@ import {
 import { useAuth } from '../utils/context/authContext';
 
 function ReactionsTwo({ commentId }) {
-  const [reactions, setReactions] = useState([]);
+  const [setReactions] = useState([]);
   const [count, setCount] = useState(0);
-  const [negCount, setNegCount] = useState(1);
+  // const [negCount, setNegCount] = useState(1);
   // const [emojs, setEmojs] = useState([]);
   const [allReactions, setAllReactions] = useState([]);
   const [commentRts, setCommentReactions] = useState([]);
@@ -23,7 +23,7 @@ function ReactionsTwo({ commentId }) {
   // fiND A WAY TO DELETE AN EMOJI BY USER
   // tOGGLE BETWEEN ADDING AMN EMOJI
 
-  console.warn(commentRts);
+  // console.warn(commentRts);
   // console.warn(emojs);
 
   // const getCommentEmojis = () => {
@@ -96,7 +96,7 @@ function ReactionsTwo({ commentId }) {
     if (user.id === commentRts.id) {
       setCount(count + 1);
     } else {
-      setNegCount(count - 1);
+      // setNegCount(count - 1);
     }
   };
 
@@ -132,11 +132,11 @@ function ReactionsTwo({ commentId }) {
           <div key={reaction.id}><input className={`display-reactions ${reaction.id === console.warn(commentRt.reaction) ? 'no-show' : ''}`} type="image" onClick={handleClick} key={reaction.id} id={reaction.id} src={reaction.image_url} value={reaction.id} /><span className={`reaction-counter ${reaction.count === 0 ? 'no-show' : ''}`}>{reaction.count}</span></div>
         )))}
       </div> */}
-      <div className="reactions-display">
+      {/* <div className="reactions-display">
         {commentRts.map((commentRt) => (
           <div key={reactions.id}><input className={`display-reactions ${reactions.id === commentRt.reaction ? reactions.image_url : ''}`} type="image" onClick={handleClick} key={reactions.id} id={reactions.id} src={commentRt.reaction.image_url} /><Badge bg="secondary">{count || negCount}</Badge></div>
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }

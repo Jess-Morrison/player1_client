@@ -7,6 +7,7 @@
 
 // import React from 'react';
 import React, { useState, useEffect } from 'react';
+import Badge from 'react-bootstrap/Badge';
 import PropTypes from 'prop-types';
 import { Card } from 'react-bootstrap';
 import Button from 'react-bootstrap/Button';
@@ -20,7 +21,7 @@ import { deleteComment, getCommentById } from '../../utils/data/commentData';
 // import Reactions from '../Reaction';
 import ReactionsTwo from '../Reactionstwo';
 // import ReactionContainer from '../commentComponents/commentReactionContainer';
-import { getReactions } from '../../utils/data/reactionData';
+import { getReactions, getCommentReactions } from '../../utils/data/reactionData';
 import { useAuth } from '../../utils/context/authContext';
 
 export default function CommentCard({
@@ -29,9 +30,9 @@ export default function CommentCard({
   const [commentId, setCommentId] = useState([]);
   const [commentUser, setCommentUser] = useState([]);
   const [reactions, setReactions] = useState([]);
+  const [commentRts, setCommentReactions] = useState([]);
   // const router = useRouter();
   // const [comments, setComments] = useState([]);
-  // console.warn(commentId);
 
   const grabUser = () => {
     // const commentUsers = commentId.map((comments) => comments.user);
@@ -39,21 +40,54 @@ export default function CommentCard({
     const cUser = commentId.length > 0 ? commentId.user : null;
     setCommentUser(cUser);
   };
+  // const getCommentR = () => {
+  //   getCommentReactions().then(setCommentReactions);
+  //   return commentRts.map((commentRt) => {
+  //     if (commentId.id === commentRt.id) {
+  //       return <ReactionsTwo commentId={id} />;
+  //     }
+  //     return null;
+  //   });
+  // };
+
   useEffect(() => {
     grabUser();
   }, []);
 
   const getAndSetComment = () => {
-    getCommentById(commentId).then(setCommentId).then(() => {
-      getReactions(id).then(setReactions);
+    getCommentById(id).then(setCommentId).then(() => {
+      getReactions(id).then(setReactions).then(() => {
+        getCommentReactions().then(setCommentReactions);
+      });
     });
   };
+  // console.warn(commentId);
+  console.warn(commentRts);
+
+  const getCommentR = () => commentRts.map((commentRt) => {
+    if (commentId.id === commentRt.comment.id) {
+      return (
+        <div key={commentRt.id}>
+          <input
+            className={`display-reactions ${reactions.id === commentRt.reaction ? reactions.image_url : ''}`}
+            type="image"
+            id={commentRt.reaction.id}
+            src={commentRt.reaction.image_url}
+            alt={reactions.reaction_name}
+          />
+          <Badge bg="secondary">{commentRt.count || commentRt.negCount}</Badge>
+        </div>
+      );
+    }
+    return null;
+  });
 
   // useEffect(() => {
   //   getCommentById(id).then(setCommentId);
   // }, [id]);
   useEffect(() => {
     getAndSetComment();
+    getCommentR();
     // getCommentById(id).then(setCommentId);
     // getGameComments(id).then(setComments);
   }, [id]);
@@ -95,14 +129,21 @@ export default function CommentCard({
           <Card.Title>{commentUser ? commentUser.first_name : null}</Card.Title>
           <Card.Text>{comment}</Card.Text>
           <Card.Text>{date_created}</Card.Text>
-          <Card.Text>{reactions}</Card.Text>
+          <Card.Text>{reactions.image_url}</Card.Text>
           {/* <Link href={`/user/edit/${user.userId}`} passHref>
             <Button variant="info">EDIT</Button>
           </Link> */}
           {/* /products?orderBy="seller"&equalTo=${id} */}
           {btnsForUser()}
         </Card.Body>
-        <ReactionsTwo commentId={id} />
+        {/* {commentRts.map((commentRt) => {
+          if (commentId.id === commentRt.comment.id) {
+            return <ReactionsTwo />;
+          }
+          return null;
+        })} */}
+        {getCommentR()}
+        <ReactionsTwo commentId={commentId.id} />
         <Card.Footer />
       </Card>
       {/* {user.id === commentId.user.id ? (

@@ -17,7 +17,8 @@ import { deleteComment, getCommentById } from '../../utils/data/commentData';
 // import ReactionCardOne from './ReactionCardOne';
 // import { deleteComment } from '../../utils/data/commentData';
 // import ReactionViewsTwo from '../../pages/reactionstwo';
-import Reactions from '../Reaction';
+// import Reactions from '../Reaction';
+import ReactionsTwo from '../Reactionstwo';
 // import ReactionContainer from '../commentComponents/commentReactionContainer';
 import { getReactions } from '../../utils/data/reactionData';
 import { useAuth } from '../../utils/context/authContext';
@@ -101,9 +102,9 @@ export default function CommentCard({
           {/* /products?orderBy="seller"&equalTo=${id} */}
           {btnsForUser()}
         </Card.Body>
+        <ReactionsTwo commentId={id} />
         <Card.Footer />
       </Card>
-      <Reactions commentId={id} />
       {/* {user.id === commentId.user.id ? (
         <div className="post-card-buttons">
           <Button variant="outline-dark" type="button" className="gear" onClick={() => router.push(`/comments/edit/${id}`)}></Button>

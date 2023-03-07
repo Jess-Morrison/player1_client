@@ -1,28 +1,35 @@
 /* eslint-disable jsx-a11y/alt-text */
 import React, { useEffect, useState } from 'react';
-import {
-  Popover, OverlayTrigger, Button,
-} from 'react-bootstrap';
+// import {
+//   Popover, OverlayTrigger, Button,
+// } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {
-  getReactions, getCForDelete, deleteReaction, createCommentReaction,
+  getReactions, getCForDelete, deleteCommentReaction, createCommentReaction, getCommentReactions,
 } from '../utils/data/reactionData';
 import { useAuth } from '../utils/context/authContext';
 
 function Reactions({ commentId }) {
   const [reactions, setReactions] = useState([]);
+  const [commentReactions, setCommentReactions] = useState([]);
   const [showPop, setShowPop] = useState(false);
   const { user } = useAuth();
 
+  console.warn(commentReactions);
+
   const getTheContent = () => {
     getReactions(user.id, commentId).then(setReactions);
+  };
+
+  const getCommentR = () => {
+    getCommentReactions().then(setCommentReactions);
   };
 
   const handleClick = (e) => {
     const { value, id } = e.target;
     if (value === 'true') {
       getCForDelete(id, commentId, user.id).then((commentReaction) => {
-        deleteReaction(commentReaction[0].id).then(() => getTheContent());
+        deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
       });
     } else {
       const commentReaction = {
@@ -39,12 +46,13 @@ function Reactions({ commentId }) {
 
   useEffect(() => {
     getTheContent();
+    getCommentR();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commentId]);
 
   return (
     <div className="reactions-container">
-      <OverlayTrigger
+      {/* <OverlayTrigger
         show={showPop}
         placement="bottom"
         trigger="click"
@@ -61,7 +69,7 @@ function Reactions({ commentId }) {
             )}
       >
         <Button variant="secondary">Reactions</Button>
-      </OverlayTrigger>
+      </OverlayTrigger> */}
       <div className="reactions-display">
         {reactions.map((reaction) => (
           <div key={reaction.id}><input className={`display-reactions ${reaction.count === 0 ? 'no-show' : ''}`} type="image" onClick={handleClick} key={reaction.id} id={reaction.id} src={reaction.image_url} value={reaction.clicked} /><span className={`reaction-counter ${reaction.count === 0 ? 'no-show' : ''}`}>{reaction.count}</span></div>

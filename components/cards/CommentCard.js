@@ -38,8 +38,8 @@ export default function CommentCard({
   const [reactions, setReactions] = useState([]);
   const [setReactionsById] = useState([]);
   const [commentRts, setCommentReactions] = useState([]);
-  const [commentRtsById, setCommentReactionsById] = useState([]);
-  // const [count, setCount] = useState(0);
+  const [setCommentReactionsById] = useState([]);
+  const [count, setCount] = useState(0);
   // const [negCount, setNegCount] = useState(1);
   const { user } = useAuth();
   // const router = useRouter();
@@ -76,7 +76,7 @@ export default function CommentCard({
   const getAndSetComment = () => {
     getCommentById(id).then(setCommentId);
   };
-  console.warn(commentRtsById);
+  console.warn(commentRts);
 
   const getAndSetReaction = () => {
     getReactions(id).then(setReactions).then(() => {
@@ -128,7 +128,21 @@ export default function CommentCard({
   //   return null;
   // });
 
-  console.warn(commentRts);
+  // console.warn(commentRts);
+  console.warn(count);
+
+  const counter = () => {
+    // eslint-disable-next-line no-shadow
+    // const { id } = e.target;
+    // eslint-disable-next-line array-callback-return
+    commentRts.map((commentRt) => {
+      const getCount = commentRt.reaction.id;
+      console.warn(getCount);
+      const filteredArray = getCount.filter((element) => element === 4);
+      setCount(filteredArray.length);
+    });
+    return null;
+  };
 
   const getCommentR = () => commentRts.map((commentRt) => {
     if (commentId.id === commentRt.comment.id) {
@@ -142,7 +156,7 @@ export default function CommentCard({
             src={commentRt.reaction.image_url}
             alt={reactions.reaction_name}
           />
-          <Badge bg="secondary">{commentRt.count || commentRt.negCount}</Badge>
+          <Badge bg="secondary">{count}</Badge>
         </div>
       );
     }
@@ -158,6 +172,7 @@ export default function CommentCard({
     getAndSetComment();
     getAndSetReaction();
     getCommentR();
+    counter();
     // getTheContent();
     // getCommentById(id).then(setCommentId);
     // getGameComments(id).then(setComments);

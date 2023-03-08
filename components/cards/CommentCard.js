@@ -89,29 +89,40 @@ export default function CommentCard({
   //   const commentReaction = commentReactions.find((c) => c.id === id && c.user === userId);
   //   return commentReaction ? [commentReaction] : [];
   // });
+  // const handleClick = (e) => {
+  //   // eslint-disable-next-line no-shadow
+  //   const { id } = e.target;
+
+  //   //   if (id !== '') {
+  //   //     getCForDelete(id, commentId, user.id).then(() => {
+  //   //       // console.warn(commentReaction);
+  //   //       // commentReactions.map((commentReaction) => {
+  //   //       // console.warn(commentReactions);
+  //   //       // deleteCommentReaction(commentRtsById.id).then(() => onUpdate());
+  //   //       // deleteCommentReaction(commentRtsById.id).then(() => getTheContent());
+  //   //       // deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
+  //   //       deleteCommentReaction(commentRtsById.id).then(() => {
+  //   //         getTheContent();
+  //   //         window.location.reload();
+  //   //         // window.location.reload();
+  //   //         // });
+  //   //         // return null;
+  //   //       });
+  //   //     });
+  //   //   } return null;
+  //   // };
+  //   if (id !== '') {
+  //     getCForDelete(id, commentId, user.id).then((commentReaction) => {
+  //       deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
+  //       window.location.reload();
+  //     });
+  //   }
+  // };
 
   const handleClick = (e) => {
     // eslint-disable-next-line no-shadow
     const { id } = e.target;
 
-    //   if (id !== '') {
-    //     getCForDelete(id, commentId, user.id).then(() => {
-    //       // console.warn(commentReaction);
-    //       // commentReactions.map((commentReaction) => {
-    //       // console.warn(commentReactions);
-    //       // deleteCommentReaction(commentRtsById.id).then(() => onUpdate());
-    //       // deleteCommentReaction(commentRtsById.id).then(() => getTheContent());
-    //       // deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
-    //       deleteCommentReaction(commentRtsById.id).then(() => {
-    //         getTheContent();
-    //         window.location.reload();
-    //         // window.location.reload();
-    //         // });
-    //         // return null;
-    //       });
-    //     });
-    //   } return null;
-    // };
     if (id !== '') {
       getCForDelete(id, commentId, user.id).then((commentReaction) => {
         deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());

@@ -34,7 +34,7 @@ export default function CommentForm({ commentObj }) {
     // setCommentUser(commentUsers);
     const gId = gameId.length > 0 ? gameId.id : null;
     // const g = games.length > 0 ? games.id : null;
-    if (gameId === games.id) {
+    if (gId === games.id) {
       setGameId(gId);
     }
   };
@@ -55,7 +55,7 @@ export default function CommentForm({ commentObj }) {
     if (commentObj?.id) {
       setFormInput({
         id: commentObj.id,
-        // game: commentObj.game,
+        game: commentObj.game,
         comment_title: commentObj.comment_title,
         reactions: commentObj.reactions,
         comment: commentObj.comment,
@@ -108,7 +108,7 @@ export default function CommentForm({ commentObj }) {
         <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter your comment here" name="comment" value={formInput.comment} onChange={handleChange} required />
       </FloatingLabel>
       <FloatingLabel controlId="floatingSelect">
-        <Form.Select aria-label="game" type="text" name="game" onChange={handleChange} className="mb-3" value={games.id} required>
+        <Form.Select aria-label="game" type="text" name="game" onChange={handleChange} className="mb-3" value={formInput.game.id} required>
           <option value="">Select a Game</option>
           {games.map((mapGame) => (
             <option key={mapGame.id} value={mapGame.id}>

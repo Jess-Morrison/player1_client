@@ -99,7 +99,7 @@ export default function VideoGameForm({ gameObj }) {
           // key={gameGenres.id}
           name="gameGenre"
           type="text"
-          value={formInput.gameGenres}
+          value={formInput.gameGenre.id}
           onChange={handleChange}
           className="mb-3"
           required

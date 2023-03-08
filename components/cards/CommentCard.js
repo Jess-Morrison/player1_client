@@ -39,7 +39,7 @@ export default function CommentCard({
   const [setReactionsById] = useState([]);
   const [commentRts, setCommentReactions] = useState([]);
   const [setCommentReactionsById] = useState([]);
-  const [count, setCount] = useState(0);
+  // const [count, setCount] = useState(0);
   // const [negCount, setNegCount] = useState(1);
   const { user } = useAuth();
   // const router = useRouter();
@@ -129,20 +129,29 @@ export default function CommentCard({
   // });
 
   // console.warn(commentRts);
-  console.warn(count);
+  // console.warn(count);
 
-  const counter = () => {
+  // const counter = () => {
+  //   // eslint-disable-next-line no-shadow
+  //   // const { id } = e.target;
+  //   // eslint-disable-next-line array-callback-return
+  //   commentRts.map((commentRt) => {
+  //     const getCount = commentRt.reaction.id;
+  //     console.warn(getCount);
+  //     const filteredArray = getCount.filter((element) => element === 4);
+  //     setCount(filteredArray.length);
+  //   });
+  //   return null;
+  // };
+  const counter = (commentIds, reactionId) => {
     // eslint-disable-next-line no-shadow
     // const { id } = e.target;
     // eslint-disable-next-line array-callback-return
-    commentRts.map((commentRt) => {
-      const getCount = commentRt.reaction.id;
-      console.warn(getCount);
-      const filteredArray = getCount.filter((element) => element === 4);
-      setCount(filteredArray.length);
-    });
-    return null;
+    const reactionCount = commentRts?.filter((commentRt) => commentRt.comment.id === commentIds && commentRt.reaction.id === reactionId).length;
+    return reactionCount || 0;
   };
+  // };
+  // console.warn(count);
 
   const getCommentR = () => commentRts.map((commentRt) => {
     if (commentId.id === commentRt.comment.id) {
@@ -156,7 +165,7 @@ export default function CommentCard({
             src={commentRt.reaction.image_url}
             alt={reactions.reaction_name}
           />
-          <Badge bg="secondary">{count}</Badge>
+          <Badge bg="secondary">{counter(commentId.id, commentRt.reaction.id)}</Badge>
         </div>
       );
     }

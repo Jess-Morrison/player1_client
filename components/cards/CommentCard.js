@@ -22,7 +22,7 @@ import { deleteComment, getCommentById } from '../../utils/data/commentData';
 import ReactionsTwo from '../Reactionstwo';
 // import ReactionContainer from '../commentComponents/commentReactionContainer';
 import {
-  getReactions, getCommentReactions, deleteCommentReaction, getReactionById, getCForDelete, getCommentReactionsById,
+  getReactions, getCommentReactions, deleteCommentReaction, getReactionById,
 } from '../../utils/data/reactionData';
 // import {
 //   getReactions, getCommentReactions,
@@ -33,12 +33,14 @@ import { useAuth } from '../../utils/context/authContext';
 export default function CommentCard({
   id, comment_title, comment, date_created, onUpdate,
 }) {
-  const [commentId, setCommentId] = useState([]);
-  const [commentUser, setCommentUser] = useState([]);
+  const [commentId, setCommentId] = useState({});
+  const [commentUser, setCommentUser] = useState({});
   const [reactions, setReactions] = useState([]);
-  const [setReactionsById] = useState([]);
+  const [rBi, setReactionsById] = useState([]);
   const [commentRts, setCommentReactions] = useState([]);
-  const [setCommentReactionsById] = useState([]);
+  // const [setCommentReactionsById] = useState([]);
+  const [byID, setById] = useState([]);
+  // const [rJointView, setrJointView] = useState([]);
   // const [count, setCount] = useState(0);
   // const [negCount, setNegCount] = useState(1);
   const { user } = useAuth();
@@ -46,7 +48,7 @@ export default function CommentCard({
   // const [comments, setComments] = useState([]);
 
   const getTheContent = () => {
-    getReactionById(user.id, commentId).then(setReactionsById);
+    getReactionById(id, commentId).then(setReactionsById);
   };
 
   const grabUser = () => {
@@ -65,9 +67,10 @@ export default function CommentCard({
   //   });
   // };
 
-  useEffect(() => {
-    getCommentReactionsById(id).then(setCommentReactionsById);
-  }, [id]);
+  // useEffect(() => {
+  //   getCommentReactionsById().then(setCommentReactionsById);
+  //   // getRJointView().then
+  // }, []);
 
   useEffect(() => {
     grabUser();
@@ -76,84 +79,54 @@ export default function CommentCard({
   const getAndSetComment = () => {
     getCommentById(id).then(setCommentId);
   };
-  console.warn(commentRts);
+  // console.warn(commentRts);
 
   const getAndSetReaction = () => {
-    getReactions(id).then(setReactions).then(() => {
-      getCommentReactions().then(setCommentReactions);
-    });
+    getReactions().then(setReactions);
   };
 
-  // eslint-disable-next-line no-shadow
-  // const getCForDelete = (id, commentId, userId) => getCommentReactions(commentId).then((commentReactions) => {
-  //   const commentReaction = commentReactions.find((c) => c.id === id && c.user === userId);
-  //   return commentReaction ? [commentReaction] : [];
-  // });
-  // const handleClick = (e) => {
-  //   // eslint-disable-next-line no-shadow
-  //   const { id } = e.target;
-
-  //   //   if (id !== '') {
-  //   //     getCForDelete(id, commentId, user.id).then(() => {
-  //   //       // console.warn(commentReaction);
-  //   //       // commentReactions.map((commentReaction) => {
-  //   //       // console.warn(commentReactions);
-  //   //       // deleteCommentReaction(commentRtsById.id).then(() => onUpdate());
-  //   //       // deleteCommentReaction(commentRtsById.id).then(() => getTheContent());
-  //   //       // deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
-  //   //       deleteCommentReaction(commentRtsById.id).then(() => {
-  //   //         getTheContent();
-  //   //         window.location.reload();
-  //   //         // window.location.reload();
-  //   //         // });
-  //   //         // return null;
-  //   //       });
-  //   //     });
-  //   //   } return null;
-  //   // };
-  //   if (id !== '') {
-  //     getCForDelete(id, commentId, user.id).then((commentReaction) => {
-  //       deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
-  //       window.location.reload();
-  //     });
-  //   }
+  // const taco = () => {
+  //   getCommentReactions().then(setCommentReactions);
+  //   commentRts.map((commentRt) => setById(commentRt));
   // };
-
-  const handleClick = (e) => {
-    // eslint-disable-next-line no-shadow
-    const { id } = e.target;
-
-    if (id !== '') {
-      getCForDelete(id, commentId, user.id).then((commentReaction) => {
-        deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
-        window.location.reload();
-      });
+  const taco = async () => {
+    try {
+      const cReactions = await getCommentReactions();
+      setCommentReactions(cReactions);
+      commentRts.map((commentRt) => setById(commentRt));
+    } catch (error) {
+      console.error(error);
     }
   };
-  // commentRts.map((commentRt) => {
-  //   if (user.id !== commentRt.user.id) {
-  //     setCount(count + 1);
-  //   } else {
-  //     setNegCount(negCount - 1);
+
+  // const handleClick = async () => {
+  //   if (id !== '') {
+  //     console.warn(byID);
+  //     taco();
+  //     await deleteCommentReaction(byID.id).then(() => rBi);
   //   }
   //   return null;
-  // });
-
-  // console.warn(commentRts);
-  // console.warn(count);
-
-  // const counter = () => {
-  //   // eslint-disable-next-line no-shadow
-  //   // const { id } = e.target;
-  //   // eslint-disable-next-line array-callback-return
-  //   commentRts.map((commentRt) => {
-  //     const getCount = commentRt.reaction.id;
-  //     console.warn(getCount);
-  //     const filteredArray = getCount.filter((element) => element === 4);
-  //     setCount(filteredArray.length);
-  //   });
-  //   return null;
   // };
+
+  const handleClick = async () => {
+    // eslint-disable-next-line no-shadow
+    // const { id } = e.target;
+    // if reaction id is in the comment reactions array, then delete
+    // if (id !== '') {
+    // eslint-disable-next-line array-callback-return
+    // commentRts.map((commentR) => {
+    taco(byID).then(
+      deleteCommentReaction(byID.id).then(() => rBi),
+    );
+    await window.location.reload();
+    console.warn(byID);
+    // });
+    // deleteCommentReaction(byID.id).then(rBi).then(() => window.location.reload());
+    // window.location.reload();
+    // }
+    // return null;
+  };
+
   const counter = (commentIds, reactionId) => {
     // eslint-disable-next-line no-shadow
     // const { id } = e.target;
@@ -183,20 +156,26 @@ export default function CommentCard({
     return null;
   });
 
+  useEffect(() => {
+    getAndSetComment();
+    getAndSetReaction();
+  }, []);
+
+  useEffect(() => {
+    counter();
+    getCommentR();
+    getTheContent();
+    taco();
+    // getTheContent();
+    // getCommentById(id).then(setCommentId);
+    // getGameComments(id).then(setComments);
+  }, []);
+
   // };
 
   // useEffect(() => {
   //   getCommentById(id).then(setCommentId);
   // }, [id]);
-  useEffect(() => {
-    getAndSetComment();
-    getAndSetReaction();
-    getCommentR();
-    counter();
-    // getTheContent();
-    // getCommentById(id).then(setCommentId);
-    // getGameComments(id).then(setComments);
-  }, [id]);
 
   const deleteThisComment = () => {
     if (window.confirm('Delete?')) {

@@ -6,17 +6,17 @@ import {
 } from 'react-bootstrap';
 import PropTypes from 'prop-types';
 import {
-  getReactionById, deleteCommentReaction, createCommentReaction, getCommentReactions, getReactions, getCForDelete,
+  createCommentReaction, getReactions,
 } from '../utils/data/reactionData';
 import { useAuth } from '../utils/context/authContext';
 
-function ReactionsTwo({ commentId }) {
-  const [setReactions] = useState([]);
-  const [count, setCount] = useState(0);
+function ReactionsTwo({ commentId, id }) {
+  // const [setReactions] = useState([]);
+  // const [count, setCount] = useState(0);
   // const [negCount, setNegCount] = useState(1);
   // const [emojs, setEmojs] = useState([]);
   const [allReactions, setAllReactions] = useState([]);
-  const [commentRts, setCommentReactions] = useState([]);
+  // const [commentRts, setCommentReactions] = useState([]);
   const [showPop, setShowPop] = useState(false);
   const { user } = useAuth();
 
@@ -61,49 +61,43 @@ function ReactionsTwo({ commentId }) {
   // // eslint-disable-next-line react-hooks/exhaustive-deps
   // }, [commentRts]);
 
-  const getTheContent = () => {
-    getReactionById(user.id, commentId).then(setReactions);
-  };
+  // const getTheContent = () => {
+  //   getReactionById(user.id, commentId).then(setReactions);
+  // };
 
-  const getCommentR = () => {
-    getCommentReactions().then(setCommentReactions);
-  };
+  // const getCommentR = () => {
+  //   getCommentReactions().then(setCommentReactions);
+  // };
 
   // const handleIncrement = () => {
   //   setCount(count + 1);
   // };
 
   const handleClick = (e) => {
-    const { value, id } = e.target;
+    // const { value, id } = e.target;
+    const { value } = e.target;
+    const targetId = e.target.id;
 
-    if (value === 'true') {
-      getCForDelete(id, commentId, user.id).then((commentReaction) => {
-        // deleteCommentReaction(id).then(() => onUpdate());
-        deleteCommentReaction(commentReaction[0].id).then(() => getTheContent());
-      });
-    } else {
+    if (!value) {
       const commentReaction = {
+        id,
         commentId,
         userId: user.id,
-        reactionId: id,
+        reactionId: Number(targetId),
         // reactionImage: reactions.image_url,
       };
-      createCommentReaction(commentReaction).then(() => getTheContent());
+      createCommentReaction(commentReaction);
       window.location.reload();
+      // console.warn(commentReaction);
     }
     if (e.target.className === 'reactions') {
       setShowPop(!showPop);
     }
-    if (user.id === commentRts.id) {
-      setCount(count + 1);
-    } else {
-      // setNegCount(count - 1);
-    }
   };
 
   useEffect(() => {
-    getTheContent();
-    getCommentR();
+    // getTheContent();
+    // getCommentR();
     getReactions().then(setAllReactions);
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [commentId]);
@@ -143,12 +137,24 @@ function ReactionsTwo({ commentId }) {
 }
 
 ReactionsTwo.propTypes = {
+  id: PropTypes.number,
   commentId: PropTypes.number,
   // onUpdate: PropTypes.func.isRequired,
+  // reaction: PropTypes.shape({
+  //   id: PropTypes.number,
+  //   reaction_name: PropTypes.string,
+  //   image_url: PropTypes.string,
+  // }),
 };
 
 ReactionsTwo.defaultProps = {
+  id: 0,
   commentId: 0,
+  // reaction: PropTypes.shape({
+  //   id: PropTypes.number,
+  //   reaction_name: PropTypes.string,
+  //   image_url: PropTypes.string,
+  // }),
 };
 
 export default ReactionsTwo;

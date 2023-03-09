@@ -42,7 +42,25 @@ const createCommentReaction = (obj) => new Promise((resolve, reject) => {
 });
 
 const getCommentReactionsById = (id) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/commentreactions?id=${id}`)
+  fetch(`${clientCredentials.databaseURL}/commentreactions/${id}`)
+  // fetch(`${clientCredentials.databaseURL}/commentreactions/109`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.warn(data); // add this line to log the response
+      resolve(data);
+    })
+    .catch(reject);
+});
+
+const getRJointView = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/commentreaction/${id}`)
+    .then((response) => response.json())
+    .then(resolve)
+    .catch(reject);
+});
+
+const getCommentReactionsByCommentId = (id) => new Promise((resolve, reject) => {
+  fetch(`${clientCredentials.databaseURL}/commentreactions?commentId=${id}`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);
@@ -51,12 +69,15 @@ const getCommentReactionsById = (id) => new Promise((resolve, reject) => {
 const getCommentReactions = () => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/commentreactions`)
     .then((response) => response.json())
-    .then(resolve)
+    .then((data) => {
+      // console.warn(data); // add this line to log the response
+      resolve(data);
+    })
     .catch(reject);
 });
 
 const getCForDelete = (id, commentId, userId) => new Promise((resolve, reject) => {
-  fetch(`${clientCredentials.databaseURL}/commentreactions?id=${id}&commentId=${commentId}&userId=${userId}`)
+  fetch(`${clientCredentials.databaseURL}/commentreactions?id=${id}&commentId=${commentId.id}&userId=${userId}`)
     .then((response) => response.json())
     .then(resolve)
     .catch(reject);
@@ -65,10 +86,21 @@ const getCForDelete = (id, commentId, userId) => new Promise((resolve, reject) =
 const deleteCommentReaction = (id) => new Promise((resolve, reject) => {
   fetch(`${clientCredentials.databaseURL}/commentreactions/${id}`, {
     method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
   })
-    .then(resolve)
-    .catch(reject);
+    .then((response) => resolve(response))
+    .catch((error) => reject(error));
 });
+
+// The below code works, i just have to figure out a way to target the comment reaction id
+// const deleteCommentReaction = (id) => new Promise((resolve, reject) => {
+//   fetch(`${clientCredentials.databaseURL}/commentreactions/114`, {
+//     method: 'DELETE',
+//     headers: { 'Content-Type': 'application/json' },
+//   })
+//     .then((response) => resolve(response))
+//     .catch((error) => reject(error));
+// });
 
 export {
   getReactions,
@@ -79,6 +111,8 @@ export {
   deleteCommentReaction,
   getCommentReactionsById,
   getCommentReactions,
+  getCommentReactionsByCommentId,
+  getRJointView,
 
 };
 

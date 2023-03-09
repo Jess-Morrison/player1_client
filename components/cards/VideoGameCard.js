@@ -8,7 +8,7 @@ import { useAuth } from '../../utils/context/authContext';
 import { getVideoGameById, deleteVideoGame } from '../../utils/data/videoGameData';
 
 export default function VideoGameCard({
-  gameGenre, gameFormat, gameTitle, imageUrl, onUpdate, id,
+  gameGenre, gameFormat, gameTitle, imageUrl, onUpdate, id, purchaseLocation,
 }) {
   const [gameById, setGameById] = useState([]);
   const { user } = useAuth();
@@ -57,6 +57,7 @@ export default function VideoGameCard({
           <Card.Title>{gameTitle}</Card.Title>
           <Card.Text>{gameGenre}</Card.Text>
           <Card.Text>{gameFormat}</Card.Text>
+          <Card.Text>{purchaseLocation}</Card.Text>
           <Link href={`/videoGame/${gameById.id}`} passHref>
             <Button variant="primary" className="viewCardBtn">VIEW</Button>
           </Link>
@@ -70,7 +71,12 @@ export default function VideoGameCard({
 
 VideoGameCard.propTypes = {
   id: PropTypes.number.isRequired,
-  gameGenre: PropTypes.number.isRequired,
+  purchaseLocation: PropTypes.string.isRequired,
+  gameGenre: PropTypes.string.isRequired,
+  // gameGenre: PropTypes.shape({
+  //     id: PropTypes.number,
+  //     game_genre_name: PropTypes.string,
+  //   }).isRequired,
   gameFormat: PropTypes.string.isRequired,
   gameTitle: PropTypes.string.isRequired,
   imageUrl: PropTypes.string.isRequired,

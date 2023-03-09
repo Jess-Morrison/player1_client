@@ -2,10 +2,10 @@
 import React from 'react';
 import Link from 'next/link';
 import { signOut } from '../utils/auth';
-import { useAuth } from '../utils/context/authContext';
+// import { useAuth } from '../utils/context/authContext';
 
 export default function NavBar() {
-  const { userId } = useAuth();
+  // const { userId } = useAuth();
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-dark">
       <div className="container-fluid">
@@ -34,13 +34,13 @@ export default function NavBar() {
                 </a>
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link href={`/user/${userId}`} passHref>
                 <a className="nav-link">
                   My profile
                 </a>
               </Link>
-            </li>
+            </li> */}
             <li className="nav-item">
               <Link passHref href="/videoGame/new">
                 <a className="nav-link">

@@ -86,7 +86,7 @@ export default function CommentForm({ commentObj }) {
     e.preventDefault();
     if (commentObj?.id) {
       updateComment(formInput).then(() => {
-        setFormInput(initialState); router.push('/');
+        setFormInput(initialState); router.push('/allGamesFilter');
         // setFormInput(initialState); router.push(`/videoGame/${gameObj.id}`);
       });
     } else {
@@ -94,7 +94,7 @@ export default function CommentForm({ commentObj }) {
       const payload = {
         ...formInput, gameId: gameId.id, userId: user.id, date_created: new Date().toLocaleString({ timeZone: 'UTC' }),
       };
-      createComment(payload).then(() => router.push('/'));
+      createComment(payload).then(() => router.push('/allGamesFilter'));
     }
   };
   return (

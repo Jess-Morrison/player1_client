@@ -18,6 +18,7 @@ export default function ViewVideoGame() {
   useEffect(() => {
     getVideoGameById(gameId).then(setVideoGame);
   }, [gameId]);
+  // console.warn(viewVideoGame);
 
   // useEffect(() => {
   //   if (gameId) {

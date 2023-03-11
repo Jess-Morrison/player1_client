@@ -46,6 +46,7 @@ export default function CommentCard({
   const { user } = useAuth();
   // const router = useRouter();
   // const [comments, setComments] = useState([]);
+  console.warn(rBi);
 
   const getTheContent = () => {
     getReactionById(id, commentId).then(setReactionsById);
@@ -116,10 +117,10 @@ export default function CommentCard({
     // eslint-disable-next-line array-callback-return
     // commentRts.map((commentR) => {
     taco(byID).then(
-      deleteCommentReaction(byID.id).then(() => rBi),
+      deleteCommentReaction(byID.id).then(() => taco()),
     );
-    await window.location.reload();
     console.warn(byID);
+    // await window.location.reload();
     // });
     // deleteCommentReaction(byID.id).then(rBi).then(() => window.location.reload());
     // window.location.reload();
@@ -180,7 +181,7 @@ export default function CommentCard({
   const deleteThisComment = () => {
     if (window.confirm('Delete?')) {
       deleteComment(id).then(() => onUpdate());
-      window.location.reload();
+      // window.location.reload();
     }
   };
 
@@ -203,6 +204,7 @@ export default function CommentCard({
     }
     return null;
   };
+
   return (
 
     <>
@@ -227,7 +229,7 @@ export default function CommentCard({
           return null;
         })} */}
         {getCommentR()}
-        <ReactionsTwo commentId={commentId.id} />
+        <ReactionsTwo commentId={commentId.id} onUpdate={taco} />
         <Card.Footer />
       </Card>
       {/* {user.id === commentId.user.id ? (

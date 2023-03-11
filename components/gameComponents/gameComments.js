@@ -20,9 +20,17 @@ export default function GameComments(id) {
   useEffect(() => {
     getGameComments(id).then(setComments);
   }, [id]);
+
+  // const getCommentData = useCallback(() => getComments(id).then(setComments), []);
+
+  // useEffect(() => {
+  //   getCommentData();
+  // }, [getCommentData, id]);
+
   useEffect(() => {
     getVideoGameById(gameId).then(setVideoGame);
   }, [gameId]);
+
   return (
     <>
       {comments.map((comment) => (viewVideoGame.id === comment.game.id ? (

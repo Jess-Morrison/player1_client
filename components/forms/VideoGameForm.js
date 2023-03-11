@@ -72,7 +72,8 @@ export default function VideoGameForm({ gameObj }) {
     e.preventDefault();
     if (gameObj?.id) {
       updateVideoGame(formInput).then(() => {
-        setFormInput(initialState); router.push(`/videoGame/${gameObj.id}`);
+        setFormInput(initialState); router.push('/allGamesFilter');
+        // setFormInput(initialState); router.push(`/videoGame/${gameObj.id}`);
       });
     } else {
       // eslint-disable-next-line array-callback-return

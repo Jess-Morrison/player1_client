@@ -10,7 +10,7 @@ import {
 } from '../utils/data/reactionData';
 import { useAuth } from '../utils/context/authContext';
 
-function ReactionsTwo({ commentId, id }) {
+function ReactionsTwo({ commentId, id, onUpdate }) {
   // const [setReactions] = useState([]);
   // const [count, setCount] = useState(0);
   // const [negCount, setNegCount] = useState(1);
@@ -86,8 +86,8 @@ function ReactionsTwo({ commentId, id }) {
         reactionId: Number(targetId),
         // reactionImage: reactions.image_url,
       };
-      createCommentReaction(commentReaction);
-      window.location.reload();
+      createCommentReaction(commentReaction).then(onUpdate);
+      // window.location.reload();
       // console.warn(commentReaction);
     }
     if (e.target.className === 'reactions') {
@@ -139,7 +139,7 @@ function ReactionsTwo({ commentId, id }) {
 ReactionsTwo.propTypes = {
   id: PropTypes.number,
   commentId: PropTypes.number,
-  // onUpdate: PropTypes.func.isRequired,
+  onUpdate: PropTypes.func.isRequired,
   // reaction: PropTypes.shape({
   //   id: PropTypes.number,
   //   reaction_name: PropTypes.string,

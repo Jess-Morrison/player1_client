@@ -8,11 +8,12 @@ import { useAuth } from '../../utils/context/authContext';
 import { getVideoGameById, deleteVideoGame } from '../../utils/data/videoGameData';
 
 export default function VideoGameCard({
+  // eslint-disable-next-line camelcase
   gameGenre, gameFormat, gameTitle, imageUrl, onUpdate, id, purchaseLocation, description,
 }) {
   const [gameById, setGameById] = useState([]);
   const { user } = useAuth();
-  // console.warn(gameById);
+  console.warn(gameById);
 
   useEffect(() => {
     getVideoGameById(id).then(setGameById);
@@ -36,10 +37,10 @@ export default function VideoGameCard({
       return (
         <>
           <Link href={`/videoGame/edit/${gameById.id}`} passHref>
-            <Button variant="danger" className="editBtn">EDIT</Button>
+            <Button variant="danger" style={{ backgroundColor: '#E856C2', margin: '5px' }} className="editBtn">EDIT</Button>
           </Link>
           <Link href="/allGames" passHref>
-            <Button variant="danger" onClick={deleteThisGame} className="deleteBtn">
+            <Button variant="danger" style={{ backgroundColor: '#9C1A7A', margin: '5px' }} onClick={deleteThisGame} className="deleteBtn">
               DELETE
             </Button>
           </Link>
@@ -51,16 +52,17 @@ export default function VideoGameCard({
   return (
 
     <>
-      <Card className="text-center" style={{ width: '25rem' }}>
+      <Card className="vgCard" style={{ width: '25rem' }}>
         <Card.Body>
           <Card.Img variant="top" src={imageUrl} alt={gameTitle} style={{ height: '200px' }} />
-          <Card.Title>{gameTitle}</Card.Title>
-          <Card.Text>{gameGenre}</Card.Text>
-          <Card.Text>{gameFormat}</Card.Text>
-          <Card.Text>{purchaseLocation}</Card.Text>
+          <Card.Title><h2>{gameTitle}</h2></Card.Title>
+          <Card.Text><h5>{gameGenre}</h5></Card.Text>
+          <Card.Text><h5>Game Format: {gameFormat}</h5></Card.Text>
+          <Card.Text><h5>Purchase Location: {purchaseLocation}</h5></Card.Text>
+          {/* <Card.Text>User: {user}</Card.Text> */}
           <Card.Text>{description}</Card.Text>
           <Link href={`/videoGame/${gameById.id}`} passHref>
-            <Button variant="primary" className="viewCardBtn">VIEW</Button>
+            <Button variant="primary" style={{ backgroundColor: '#E856C2' }} className="viewCardBtn">VIEW</Button>
           </Link>
           {btnsForUser()}
         </Card.Body>
@@ -74,10 +76,11 @@ VideoGameCard.propTypes = {
   id: PropTypes.number.isRequired,
   purchaseLocation: PropTypes.string.isRequired,
   gameGenre: PropTypes.string.isRequired,
-  // gameGenre: PropTypes.shape({
-  //     id: PropTypes.number,
-  //     game_genre_name: PropTypes.string,
-  //   }).isRequired,
+  // user: PropTypes.string.isRequired,
+  // user: PropTypes.shape({
+  //   id: PropTypes.string,
+  //   user_name: PropTypes.string,
+  // }).isRequired,
   gameFormat: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
   gameTitle: PropTypes.string.isRequired,

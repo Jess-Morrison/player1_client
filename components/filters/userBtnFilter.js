@@ -99,7 +99,7 @@ export default function UserBtnFilter() {
         <button
           key={genreFilter}
           type="button"
-          style={{ margin: '5px', 'background-color': '#84190B' }}
+          style={{ margin: '5px', backgroundColor: '#9C1A7A', color: 'white' }}
           className="btn btn-secondary filterButton"
           onClick={() => setGameFilter(genreFilter)}
         >
@@ -161,7 +161,7 @@ export default function UserBtnFilter() {
         <button
           type="button"
           className="btn btn-secondary filterButton"
-          style={{ 'background-color': '#84190B' }}
+          style={{ backgroundColor: '#9C1A7A', color: 'white' }}
           onClick={() => setGameFilter(null)}
         >
           Clear

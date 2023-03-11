@@ -47,22 +47,40 @@ export default function ViewVideoGame() {
     <>
       <Link href="/comment/new" passHref>
         {/* href={`/movieEntry/movieComment/${firebaseKey}`} passHref> */}
-        <Button style={{ 'background-color': '#84190B' }} variant="create">New Comment</Button>
+        <Button
+          style={{
+            backgroundColor: '#9C1A7A', color: 'white', margin: '1rem', display: 'flex', justifyContent: 'center',
+          }}
+          variant="create"
+        >New Comment
+        </Button>
       </Link>
-      <div className="view-card">
+      <div
+        className="viewCard"
+        style={{
+          width: 'auto', 'text-align': 'center', display: 'flex', justifyContent: 'center', margin: '1rem',
+        }}
+      >
         <VideoGameCard
           key={viewVideoGame.id}
           id={viewVideoGame.id}
           gameGenre={viewVideoGame.game_genre_name}
           gameTitle={viewVideoGame.game_title}
           imageUrl={viewVideoGame.image_url}
+          user={viewVideoGame.user}
           purchaseLocation={viewVideoGame.purchase_location}
           gameFormat={viewVideoGame.game_format}
           onUpdate={getVideoGameById}
         // gameObj={viewVideoGame}
         />
       </div>
-      {gameComments()}
+      <div
+        className="viewCard"
+        style={{
+          width: 'auto', 'text-align': 'center', display: 'flex', justifyContent: 'center', margin: '1rem',
+        }}
+      >{gameComments()}
+      </div>
     </>
   );
 }

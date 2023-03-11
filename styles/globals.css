@@ -1,11 +1,12 @@
 @import 'bootstrap/dist/css/bootstrap.css';
+/* @import 'https://fonts.googleapis.com/css2?family=Playfair+Display:ital@1'; */
+@import url('https://fonts.googleapis.com/css2?family=Climate+Crisis&family=Hanalei+Fill&family=Lato:wght@300&family=Lobster&family=Playfair+Display:ital@1&family=Roboto+Slab&family=Rubik+Iso&family=Square+Peg&family=Water+Brush&display=swap');
 
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: 'Roboto Slab', serif;
 }
 
 a {
@@ -18,5 +19,25 @@ a {
 }
 
 body {
-  background-color: #88effd;
+  background-color: #39e26c;
+}
+
+/* .commentCard{
+  margin:5%;
+  padding: 5%;
+} */
+
+.vgCard{
+  margin: '5rem'; 
+}
+
+.collection{
+  color: #9C1A7A;
+  font-size: 5rem;
+  font-family: 'Rubik Iso', cursive;
+}
+
+.viewCard{
+  display: flex;
+  justify-content: center; 
 }

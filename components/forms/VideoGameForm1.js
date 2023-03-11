@@ -21,7 +21,7 @@ const initialState = {
   // userFirebaseKey: '',
 };
 
-export default function VideoGameForm({ obj }) {
+export default function VideoGameForm1({ obj }) {
   const [formInput, setFormInput] = useState(initialState);
   const [gameGenres, setGameGenres] = useState([]);
   // const [users, setUsers] = useState([]);
@@ -145,7 +145,7 @@ export default function VideoGameForm({ obj }) {
   );
 }
 
-VideoGameForm.propTypes = {
+VideoGameForm1.propTypes = {
   obj: PropTypes.shape({
     id: PropTypes.number,
     user: PropTypes.number,
@@ -160,6 +160,6 @@ VideoGameForm.propTypes = {
   }),
 };
 
-VideoGameForm.defaultProps = {
+VideoGameForm1.defaultProps = {
   obj: initialState,
 };

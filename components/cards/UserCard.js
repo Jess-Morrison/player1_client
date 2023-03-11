@@ -27,14 +27,14 @@ export default function UserCard({
           <Card.Text>{userName}</Card.Text>
           <Card.Text>{tagLine}</Card.Text>
           <Link href={`/user/${user.userId}`} passHref>
-            <Button variant="primary" className="m-2">VIEW</Button>
+            <Button variant="primary" style={{ backgroundColor: '#E856C2' }} className="m-2">VIEW</Button>
           </Link>
           <Link href={`/user/edit/${user.userId}`} passHref>
-            <Button variant="info">EDIT</Button>
+            <Button variant="info" style={{ backgroundColor: '#E856C2' }}>EDIT</Button>
           </Link>
           {/* /products?orderBy="seller"&equalTo=${id} */}
           /The above route doesnt work because it is not the file hirearcy, dynamic routes grab the file path
-          <Button variant="danger" onClick={deleteThisUser} className="m-2">
+          <Button variant="danger" style={{ backgroundColor: '#9C1A7A' }} onClick={deleteThisUser} className="m-2">
             DELETE
           </Button>
         </Card.Body>

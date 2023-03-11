@@ -41,7 +41,7 @@ export default function VideoGameForm({ gameObj }) {
       setFormInput({
         id: gameObj.id,
         // gameGenre: Number(gameObj.gameGenre),
-        gameGenre: gameObj.game_genre,
+        gameGenre: gameObj.game_genre.id,
         gameTitle: gameObj.game_title,
         imageUrl: gameObj.image_url,
         purchaseLocation: gameObj.purchase_location,
@@ -84,7 +84,13 @@ export default function VideoGameForm({ gameObj }) {
   return (
     <Form onSubmit={handleSubmit}>
       {/* <h2 style={{ color: '#84190B', font: 'bold', 'font-size': '5rem' }} className="mt-5">Video Game</h2> */}
-      <h2 style={{ color: '#84190B', font: 'bold', 'font-size': '5rem' }} className="mt-5">{gameObj?.id ? 'Update' : 'Create'} Video Game</h2>
+      <h2
+        style={{
+          color: '#9C1A7A', font: 'bold', 'font-size': '5rem', 'font-family': 'Rubik Iso',
+        }}
+        className="mt-5"
+      >{gameObj?.id ? 'Update' : 'Create'} Video Game
+      </h2>
       <FloatingLabel controlId="floatingInput1" label="Video Game Name" className="mb-5">
         <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Video Game Name" name="gameTitle" value={formInput.gameTitle} onChange={handleChange} required />
       </FloatingLabel>
@@ -100,14 +106,14 @@ export default function VideoGameForm({ gameObj }) {
           // key={gameGenres.id}
           name="gameGenre"
           type="text"
-          value={formInput.gameGenre.id}
+          value={formInput.gameGenre}
           onChange={handleChange}
           className="mb-3"
           required
         >
           <option value="">Select Game Genre</option>
           {gameGenres.map((gameGenre) => (
-            <option value={gameGenre.id} style={{ color: 'black' }}>
+            <option key={gameGenre.id} value={gameGenre.id} style={{ color: 'black' }}>
               {gameGenre.game_genre_name}
             </option>
           ))}
@@ -127,19 +133,19 @@ export default function VideoGameForm({ gameObj }) {
         <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Video Game Description" name="description" value={formInput.description} onChange={handleChange} required />
       </FloatingLabel>
       {/* <Button type="submit">Submit</Button> */}
-      <Button type="submit">{gameObj?.id ? 'Update' : 'Create'} Video Game</Button>
+      <Button type="submit" style={{ backgroundColor: '#9C1A7A' }}>{gameObj?.id ? 'Update' : 'Create'} Video Game</Button>
     </Form>
   );
 }
 
 VideoGameForm.propTypes = {
   gameObj: PropTypes.shape({
-    game_genre: PropTypes.shape({
-      id: PropTypes.number,
-      game_genre_name: PropTypes.string,
-    }),
+    // game_genre: PropTypes.shape({
+    //   id: PropTypes.number,
+    //   // game_genre_name: PropTypes.string,
+    // }),
     id: PropTypes.number,
-    // game_genre: PropTypes.number,
+    game_genre: PropTypes.number,
     game_title: PropTypes.string,
     image_url: PropTypes.string,
     purchase_location: PropTypes.string,

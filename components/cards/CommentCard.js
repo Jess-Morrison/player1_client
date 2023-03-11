@@ -192,10 +192,10 @@ export default function CommentCard({
       return (
         <>
           <Link href={`/comment/edit/${commentId.id}`} passHref>
-            <Button variant="danger" className="editBtn">EDIT</Button>
+            <Button variant="danger" style={{ backgroundColor: '#E856C2', margin: '5px' }} className="editBtn">EDIT</Button>
           </Link>
           <Link href="/allGames" passHref>
-            <Button variant="danger" onClick={deleteThisComment} className="deleteBtn">
+            <Button variant="danger" style={{ backgroundColor: '#9C1A7A', margin: '5px' }} onClick={deleteThisComment} className="deleteBtn">
               DELETE
             </Button>
           </Link>
@@ -208,7 +208,7 @@ export default function CommentCard({
   return (
 
     <>
-      <Card className="text-center" style={{ width: '25rem' }}>
+      <Card className="commentCard" style={{ width: '25rem', 'text-align': 'center' }}>
         <Card.Body>
           <Card.Title>{comment_title}</Card.Title>
           {/* <Card.Title>{commentId.commentUser}</Card.Title> */}

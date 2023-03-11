@@ -17,7 +17,7 @@ export default function MainPage() {
     <div className="text-center my-4">
       {/* {videoGames.map((videoGame) => (
         <> */}
-      <h1 style={{ fontSize: '5rem' }}> The Collection </h1>
+      <h1 className="collection" style={{ fontSize: '5rem' }}> The Collection </h1>
       <BtnFilter />
       {/* </>
       ))} */}

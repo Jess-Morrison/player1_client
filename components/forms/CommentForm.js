@@ -100,7 +100,13 @@ export default function CommentForm({ commentObj }) {
   return (
     <Form onSubmit={handleSubmit}>
       {/* <h2 style={{ color: '#84190B', font: 'bold', 'font-size': '5rem' }} className="mt-5">Comment</h2> */}
-      <h2 style={{ color: '#84190B', font: 'bold', 'font-size': '5rem' }} className="mt-5">{commentObj?.id ? 'Update' : 'Create'} Comment</h2>
+      <h2
+        style={{
+          color: '#9C1A7A', font: 'bold', 'font-size': '5rem', 'font-family': 'Rubik Iso',
+        }}
+        className="mt-5"
+      >{commentObj?.id ? 'Update' : 'Create'} Comment
+      </h2>
       <FloatingLabel controlId="floatingInput1" label="Comment Title" className="mb-5">
         <Form.Control style={{ padding: '4rem' }} type="text" placeholder="Enter Comment Title" name="comment_title" value={formInput.comment_title} onChange={handleChange} required />
       </FloatingLabel>
@@ -118,7 +124,7 @@ export default function CommentForm({ commentObj }) {
         </Form.Select>
       </FloatingLabel>
       {/* <Button type="submit">Submit</Button> */}
-      <Button type="submit">{commentObj?.id ? 'Update' : 'Create'} Comment</Button>
+      <Button type="submit" style={{ backgroundColor: '#9C1A7A' }}>{commentObj?.id ? 'Update' : 'Create'} Comment</Button>
     </Form>
   );
 }

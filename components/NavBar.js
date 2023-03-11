@@ -7,10 +7,17 @@ import { signOut } from '../utils/auth';
 export default function NavBar() {
   // const { userId } = useAuth();
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav className="navbar navbar-expand-md navbar-dark bg-dark text-center">
       <div className="container-fluid">
         <Link passHref href="/">
-          <a className="navbar-brand" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
+          <a
+            className="navbar-brand text-center"
+            style={{
+              color: '#9C1A7A', font: 'bold', 'font-size': '2rem', 'font-family': 'Rubik Iso',
+            }}
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarTogglerDemo01"
+          >
             Player1
           </a>
         </Link>
@@ -18,7 +25,7 @@ export default function NavBar() {
           <span className="navbar-toggler-icon" />
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <div className="collapse navbar-collapse text-center" id="navbarTogglerDemo01">
           <ul className="navbar-nav me-auto">
             <li className="nav-item">
               <Link passHref href="/allGamesFilter">
@@ -48,7 +55,7 @@ export default function NavBar() {
                 </a>
               </Link>
             </li>
-            <button type="button" className="btn btn-danger" onClick={signOut}>
+            <button type="button" className="btn btn-danger" style={{ backgroundColor: '#9C1A7A' }} onClick={signOut}>
               Sign Out
             </button>
           </ul>

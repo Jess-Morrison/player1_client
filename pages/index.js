@@ -16,7 +16,7 @@ function Home() {
     >
       <h1>Hello {user.displayName}! </h1>
       <p>Click the button below to logout!</p>
-      <button className="btn btn-danger btn-lg copy-btn" type="button" onClick={signOut}>
+      <button className="btn btn-danger btn-lg copy-btn" style={{ backgroundColor: '#9C1A7A' }} type="button" onClick={signOut}>
         Sign Out
       </button>
     </div>
